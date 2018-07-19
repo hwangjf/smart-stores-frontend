@@ -9,10 +9,7 @@ class BodyContainer extends React.Component {
   render() {
     return (
       <Grid>
-        <Grid.Column floated='left' width={5}>
-          <h1>HI</h1>
-        </Grid.Column>
-        <Grid.Column floated='right' width={5}>
+        <Grid.Column floated='right' width={8}>
           <h1>HI</h1>
         </Grid.Column>
       </Grid>

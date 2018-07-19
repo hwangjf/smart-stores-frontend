@@ -1,10 +1,13 @@
 import React from 'react'
-import { Header, Icon } from 'semantic-ui-react'
+import { Header, Icon, Button } from 'semantic-ui-react'
 
 const TopBarContainer = () => (
   <Header as='h2'>
-    <Icon name='plug' />
-    <Header.Content>Uptime Guarantee</Header.Content>
+    <Icon name='bath' />
+    <Header.Content>Smart Store</Header.Content>
+    <div>
+      <Button size='tiny'>hi</Button>
+    </div>
   </Header>
 );
 
