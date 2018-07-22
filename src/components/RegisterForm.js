@@ -1,58 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react'
+import { Button, Input, Checkbox, Form, Label } from 'semantic-ui-react'
 
-class RegisterForm extends Component {
-  state = {
-    username: '',
-    password: ''
-  }
-
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
-
-  // handleSubmit = (event) => {
-  //   event.preventDefault()
-
-  //   const config = {
-  //     method: 'POST',
-  //     headers: {
-  //       "content-type": "application/json"
-  //     },
-  //     body: JSON.stringify(this.state)
-  //   }
-  //   fetch('http://localhost:3000/users', config)
-  //     .then(res => res.json())
-  //     .then(json => {
-  //       console.log(json);
-  //       localStorage.setItem('token', json.token);
-  //       this.props.history.push("/gifs")
-  //     })
-  // }
-
+class RegisterForm extends React.Component {
   render() {
     return (
-      <div>
-        <h2>Register</h2>
-        <form id="register" onSubmit={this.handleSubmit}>
+      <Form widths="equal" size="tiny">
+        <Form.Field required>
+          <label>First Name:</label>
+          <Input placeholder='First Name' />
+        </Form.Field>
+        <Form.Field required>
+          <label>Last Name:</label>
+          <Input placeholder='Last Name'/>
+        </Form.Field>
+        <Form.Field required>
           <label>Username:</label>
-          <input
-            type="text"
-            value={this.state.username}
-            name="username"
-            onChange={this.handleChange}
-          />
+          <Input placeholder='Must be at least 5 characters'/>
+        </Form.Field>
+        <Form.Field required>
           <label>Password:</label>
-          <input
-            type="text"
-            value={this.state.password}
-            name="password"
-            onChange={this.handleChange}
-          />
-          <button type="submit" >Create User</button>
-        </form>
-      </div>
+          <Input placeholder='Must be at least 5 characters'/>
+        </Form.Field>
+        <Button type='submit'>Submit</Button>
+      </Form>
     )
   }
-}
+} 
 
-export default RegisterForm;
+export default RegisterForm

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Grid,Image,Segment } from 'semantic-ui-react'
+import { Grid,Image,Segment, Search } from 'semantic-ui-react'
 import TopBarContainer from './containers/TopBarContainer'
 import SideBarContainer from './containers/SideBarContainer'
 import BodyContainer from './containers/BodyContainer'
@@ -13,13 +13,11 @@ class App extends Component {
         <TopBarContainer />
         <Grid column="equal" stretched>
           <Grid.Row stretched>
-            <Grid.Column width={5} floated="left">
+            <Grid.Column width={3} floated="left">
               <SideBarContainer />
             </Grid.Column>
-            <Grid.Column width={8} >
-              <Segment>
-                10
-              </Segment>
+            <Grid.Column width={10} >
+              <BodyContainer />
             </Grid.Column>
             <Grid.Column width={3} floated="right" >
               <Segment>3</Segment>

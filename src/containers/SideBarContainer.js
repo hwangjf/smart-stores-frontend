@@ -8,9 +8,9 @@ export default class SideBarContainer extends Component {
     const { activeItem } = this.state || {}
 
     return (
-      <Menu vertical>
+      <Menu vertical compact>
         <Menu.Item>
-          <Menu.Header>Products</Menu.Header>
+          <Menu.Header>Categories</Menu.Header>
 
           <Menu.Menu>
             <Menu.Item
