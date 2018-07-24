@@ -11,9 +11,9 @@ class App extends Component {
     return (
       <div>
         <TopBarContainer />
-        <Grid column="equal" stretched>
+        <Grid column="equal">
           <Grid.Row stretched>
-            <Grid.Column width={3} floated="left">
+            <Grid.Column width={3} floated="left" fixed="left" >
               <SideBarContainer />
             </Grid.Column>
             <Grid.Column width={10} >

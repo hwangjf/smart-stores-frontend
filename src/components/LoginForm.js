@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Input, Form, Label } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { logIn } from '../actions/index';
+import { login } from '../actions/index';
 
 class LoginForm extends React.Component {
   state = {
@@ -20,7 +20,7 @@ class LoginForm extends React.Component {
       username: this.state.username,
       password: this.state.password
     }
-    this.props.logIn(user)
+    this.props.login(user)
     this.props.handleClose()
   }
 
@@ -30,6 +30,7 @@ class LoginForm extends React.Component {
         <Form.Field required>
           <label>Username:</label>
           <Input 
+            required
             icon="user outline"
             iconPosition="left"
             placeholder="Must be at least 5 characters" 
@@ -42,6 +43,7 @@ class LoginForm extends React.Component {
           <label>Password:</label>
           <Input 
             icon="key"
+            required
             iconPosition="left"
             placeholder="Must be at least 5 characters" 
             name="password"
@@ -57,7 +59,7 @@ class LoginForm extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logIn: (username, password) => dispatch(logIn(username, password)) // dispatch an addUser action
+    login: (username, password) => dispatch(login(username, password))
   }
 }
 

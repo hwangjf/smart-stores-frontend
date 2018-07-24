@@ -1,17 +1,17 @@
-import { ADD_USER, LOGIN, LOGIN_GUEST, LOGOUT } from './types';
-import Adapter from '../Adapter';
+import { REGISTER, LOGIN, LOGIN_GUEST, LOGOUT, ADD_USER_SUBSCRIPTION, DELETE_USER_SUBSCRIPTION } from './types';
+import Adapter from '../Adapter'; 
+
+export const addUserSubscription = (userId, subscriptionId) => dispatch => {
+  Adapter.addUserSubscription(userId, subscriptionId)
+}
+
+export const deleteUserSubscription = (userId, subscriptionId) => dispatch => {
+  Adapter.deleteUserSubscription(userId, subscriptionId)
+}
 
 export const loginGuest = () => dispatch => {
-  fetch('http://localhost:4000/api/v1/sessions', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      username: "guest",
-      password: "guest"
-    })
-  })
+  Adapter.isLoggedIn();
+  Adapter.loginGuest()
     .then(response => response.json())
     .then(user => {
       localStorage.setItem('token', user.token);
@@ -29,37 +29,25 @@ export const logout = () => dispatch => {
   })
 }
 
-export const addUser = (user) => dispatch => {
-  fetch('http://localhost:4000/api/v1/users', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
+export const register = (user) => dispatch => {
+  Adapter.register(user)
     .then(response => response.json())
     .then(user => {
       localStorage.setItem('token', user.token);
       dispatch({
-        type: ADD_USER,
+        type: REGISTER,
         payload: user
       })
     })
 };
 
-export const logIn = (user) => dispatch => {
-  fetch('http://localhost:4000/api/v1/sessions', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
+export const login = (user) => dispatch => {
+  Adapter.login()
     .then(response => response.json())
     .then(user => {
       localStorage.setItem('token', user.token);
       dispatch({
-        type: ADD_USER,
+        type: LOGIN,
         payload: user
       })
     })

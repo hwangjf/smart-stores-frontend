@@ -10,7 +10,6 @@ class LoginModal extends React.Component {
   handleOpen = () => this.setState({ modalOpen: true })
   handleClose = () => this.setState({ modalOpen: false })
 
-
   render() {
     return (
       <Modal

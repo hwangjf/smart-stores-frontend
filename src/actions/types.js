@@ -1,4 +1,6 @@
-export const ADD_USER = 'ADD_USER';
+export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOGIN_GUEST = 'LOGIN_GUEST';
+export const ADD_USER_SUBSCRIPTION = 'ADD_USER_SUBSCRIPTION'; 
+export const DELETE_USER_SUBSCRIPTION = 'DELETE_USER_SUBSCRIPTION'; 

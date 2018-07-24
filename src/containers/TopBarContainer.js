@@ -15,12 +15,14 @@ class TopBarContainer extends Component {
   guestSignin = (event) => {
     event.preventDefault();
     
+    // this.forceUpdate();
     this.props.loginGuest();
   }
 
   logout = (event) => {
     event.preventDefault();
-
+    
+    // this.forceUpdate();
     this.props.logout();
   }
 
@@ -31,15 +33,14 @@ class TopBarContainer extends Component {
 
       <Menu>
         <Menu.Item header>Smart Stores</Menu.Item>
+        {this.props.user.id === undefined ? null : <Menu.Item header> {this.props.user.username} </Menu.Item>}
 
         <Menu.Item position="right">
           <Search fluid placeholder='Search for a company'/>
         </Menu.Item>
         
-        
         {Adapter.isLoggedIn()
         ?
-        
           <Menu.Item>
             <Button basic color="red" type="submit" onClick={this.logout}>Log Out</Button>
           </Menu.Item>
@@ -66,4 +67,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(TopBarContainer));
+function mapStateToProps(state) {
+  return {
+    user: state.user.currentUser
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TopBarContainer));
