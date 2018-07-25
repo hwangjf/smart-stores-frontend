@@ -1,7 +1,11 @@
 import React from 'react';
-import {Container,Header,Segment} from 'semantic-ui-react'
-import SubscriptionsDisplay from '../components/SubscriptionsDisplay'
+import {Container,Header,Segment} from 'semantic-ui-react';
+import SubscriptionsDisplay from '../components/SubscriptionsDisplay';
 import Adapter from '../Adapter';
+import { connect } from 'react-redux';
+import { getUserSubscriptions } from '../actions/index';
+import ProfileDisplay from '../components/ProfileDisplay';
+import {Route} from 'react-router-dom';
 
 class BodyContainer extends React.Component {
   state = {
@@ -12,9 +16,11 @@ class BodyContainer extends React.Component {
     Adapter.getSubscriptionIndex()
       .then(response=>response.json())
       .then(json=> {
-        this.setState({subscriptions:json},()=>{console.log(this.state)
-        })
+        this.setState({subscriptions:json}
+          // ,()=>{console.log(this.state)}
+        )
     })
+
   }
 
   render() {
@@ -30,6 +36,16 @@ class BodyContainer extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    userSubscriptions: state.userSubscriptions
+  }
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getUserSubscriptions: () => dispatch(getUserSubscriptions())
+  }
+}
 
-export default BodyContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);

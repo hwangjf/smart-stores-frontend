@@ -1,17 +1,46 @@
-import { REGISTER, LOGIN, LOGIN_GUEST, LOGOUT, ADD_USER_SUBSCRIPTION, DELETE_USER_SUBSCRIPTION } from './types';
+import { 
+  REGISTER, 
+  LOGIN, 
+  LOGIN_GUEST, 
+  LOGOUT, 
+  ADD_USER_SUBSCRIPTION, 
+  DELETE_USER_SUBSCRIPTION,
+  GET_USER_SUBSCRIPTIONS
+} from './types';
 import Adapter from '../Adapter'; 
 
+export const getUserSubscriptions = (userId) => dispatch => {
+  Adapter.getUserSubscriptions(userId)
+    .then(response => response.json())
+    .then(subscriptions => {
+      console.log(subscriptions)
+      dispatch({
+        type: GET_USER_SUBSCRIPTIONS,
+        payload: subscriptions
+      })
+    })
+}
+
 export const addUserSubscription = (userId, subscriptionId) => dispatch => {
-  Adapter.addUserSubscription(userId, subscriptionId)
+  // console.log("add", userId, subscriptionId)
+  // Adapter.addUserSubscription(userId, subscriptionId)
+
+  dispatch({
+    type: ADD_USER_SUBSCRIPTION
+  })
 }
 
 export const deleteUserSubscription = (userId, subscriptionId) => dispatch => {
-  Adapter.deleteUserSubscription(userId, subscriptionId)
+  // console.log("delete",userId,subscriptionId)
+  // Adapter.deleteUserSubscription(userId, subscriptionId)
+
+  dispatch({
+    type: DELETE_USER_SUBSCRIPTION
+  })
 }
 
 export const loginGuest = () => dispatch => {
-  Adapter.isLoggedIn();
-  Adapter.loginGuest()
+  return Adapter.loginGuest()
     .then(response => response.json())
     .then(user => {
       localStorage.setItem('token', user.token);

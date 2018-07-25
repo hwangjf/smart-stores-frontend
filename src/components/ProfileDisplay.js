@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Adapter from '../Adapter';
+import { Segment } from 'semantic-ui-react';
 
 class ProfileDisplay extends Component {
-  state = {
-    subscriptions: []
-  }
-
-  componentDidMount() {
-    Adapter.getUserSubscriptions()
-      .then(response => response.json())
-      .then(subscriptions => this.setState({ subscriptions }))
-  }
-
   render() {
+    // console.log(this.props.userSubscriptions)
     return (
-      <div>
-        
-      </div>
+      <Segment>
+        {/* {this.props.userSubscriptions ? this.props.userSubscriptions.map(s=>s.name) : null }
+       */}
+       {this.props.userSubscriptions.map(s=>s.name)}
+      </Segment>
     )
   }
 }
 
-export default connect()(ProfileDisplay);
+function mapStateToProps(state) {
+  return {
+    userSubscriptions: state.user.userSubscriptions
+  }
+}
+
+export default connect(mapStateToProps)(ProfileDisplay);

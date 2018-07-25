@@ -45,6 +45,7 @@ class LoginForm extends React.Component {
             icon="key"
             required
             iconPosition="left"
+            type="password"
             placeholder="Must be at least 5 characters" 
             name="password"
             value={this.state.password}

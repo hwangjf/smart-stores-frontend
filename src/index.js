@@ -13,7 +13,8 @@ import store from './store'
 ReactDOM.render(
   <Provider store={store}>
     <Router >
-      <Route exact path ="/" component={App}/> 
+      <App />
+      {/* <Route exact path ="/" component={()=><App {...props} />}/>  */}
     </Router>
   </Provider>
   , document.getElementById('root'));

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Segment, Image, Button } from 'semantic-ui-react';
+import { Segment, Image, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addUserSubscription, deleteUserSubscription } from '../actions/index';
 import Adapter from '../Adapter';
@@ -10,16 +10,16 @@ class SubscriptionsDisplay extends Component {
   }
 
   handleClick = () => {
-    this.state.clicked ? this.addSubscription() : this.deleteSubscription()
+    this.state.clicked ? this.deleteSubscription() : this.addSubscription() 
   }
   
   addSubscription = () => {
-    this.props.addUserSubscription(this.props.user.id, this.props.subscription.id)
+    Adapter.addUserSubscription(this.props.user.id, this.props.subscription.id)
     this.setState({ clicked: true })
   }
 
   deleteSubscription = () => {
-    this.props.deleteUserSubscription(this.props.user.id, this.props.subscription.id)
+    Adapter.deleteUserSubscription(this.props.user.id, this.props.subscription.id)
     this.setState({ clicked: false })
   }
 
@@ -46,7 +46,7 @@ class SubscriptionsDisplay extends Component {
                   <Button 
                     id={this.props.subscription.id} 
                     floated="right" 
-                    basic 
+                    basic
                     color={this.state.clicked ? "red" : "green"} 
                     icon={this.state.clicked ? "cancel" : "add"} 
                     circular
@@ -63,7 +63,7 @@ class SubscriptionsDisplay extends Component {
           </Segment>
         </Segment.Group>
         {this.props.subscription.info
-          ?
+        ?
           <Segment>{this.props.subscription.info.description}</Segment>
         :
           null}
@@ -80,7 +80,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addUserSubscription: (userId, subscriptionId) => dispatch(addUserSubscription(userId, subscriptionId))
+    // addUserSubscription: (userId, subscriptionId) => dispatch(addUserSubscription(userId, subscriptionId)),
+    // deleteUserSubscription: (userId, subscriptionId) => dispatch(deleteUserSubscription(userId, subscriptionId))
   }
 }
 

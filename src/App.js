@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Grid,Image,Segment, Search } from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 import TopBarContainer from './containers/TopBarContainer'
 import SideBarContainer from './containers/SideBarContainer'
 import BodyContainer from './containers/BodyContainer'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { withRouter, Switch, Route } from 'react-router-dom';
+import ProfileDisplay from './components/ProfileDisplay';
 
 class App extends Component {
   render() {
@@ -17,7 +18,10 @@ class App extends Component {
               <SideBarContainer />
             </Grid.Column>
             <Grid.Column width={10} >
-              <BodyContainer />
+              <Switch>
+                <Route exact path='/profile' component={ProfileDisplay} />
+                <Route path='/' component={BodyContainer} />
+              </Switch>
             </Grid.Column>
             <Grid.Column width={3} floated="right" >
               <Segment>3</Segment>
@@ -30,4 +34,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

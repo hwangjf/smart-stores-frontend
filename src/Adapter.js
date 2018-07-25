@@ -1,22 +1,25 @@
 const backend_url = 'http://localhost:4000/api/v1'
 
 export default class Adapter {
+
   static addUserSubscription(userId, subscriptionId) {
-    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, {
+    const config = {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
       }
-    })
+    }
+    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, config)
   }
 
   static deleteUserSubscription(userId, subscriptionId) {
-    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, {
+    const config = {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
       }
-    })
+    }
+    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, config)
   }
 
   static getSubscriptionIndex() {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Input, Checkbox, Form, Label } from 'semantic-ui-react';
-import { connect } from 'react-redux';
+import { Button, Input, Form } from 'semantic-ui-react';
+// import { connect } from 'react-redux';
 
 class RegisterForm extends React.Component {
   state = {
@@ -70,6 +70,7 @@ class RegisterForm extends React.Component {
           <Input 
             icon="key"
             name="password"
+            type="password"
             onChange={this.handleChange}
             value={this.state.password}
             iconPosition="left" 
