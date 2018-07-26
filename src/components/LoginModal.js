@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Modal, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
-
+import {withRouter} from 'react-router-dom'
 
 class LoginModal extends React.Component {
   state = { modalOpen: false }
 
-  handleOpen = () => this.setState({ modalOpen: true })
-  handleClose = () => this.setState({ modalOpen: false })
+  handleOpen = () => this.setState({ modalOpen: true }, () => { this.props.history.push('/login') })
+  handleClose = () => this.setState({ modalOpen: false }, () => { this.props.history.push('/') }) 
 
   render() {
     return (
@@ -30,4 +30,4 @@ class LoginModal extends React.Component {
 
 
 
-export default LoginModal;
+export default withRouter(LoginModal);

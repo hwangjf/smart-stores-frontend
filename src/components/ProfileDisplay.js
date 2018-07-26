@@ -5,12 +5,9 @@ import { Segment } from 'semantic-ui-react';
 
 class ProfileDisplay extends Component {
   render() {
-    // console.log(this.props.userSubscriptions)
     return (
       <Segment>
-        {/* {this.props.userSubscriptions ? this.props.userSubscriptions.map(s=>s.name) : null }
-       */}
-       {this.props.userSubscriptions.map(s=>s.name)}
+      <h1>{this.props.subscription.name}</h1>
       </Segment>
     )
   }
@@ -18,6 +15,7 @@ class ProfileDisplay extends Component {
 
 function mapStateToProps(state) {
   return {
+    user: state.user.currentUser,
     userSubscriptions: state.user.userSubscriptions
   }
 }

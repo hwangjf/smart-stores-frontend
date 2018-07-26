@@ -5,15 +5,15 @@ import {
   LOGOUT, 
   ADD_USER_SUBSCRIPTION, 
   DELETE_USER_SUBSCRIPTION,
-  GET_USER_SUBSCRIPTIONS
+  GET_USER_SUBSCRIPTIONS,
+  PERSIST_USER
 } from './types';
 import Adapter from '../Adapter'; 
 
 export const getUserSubscriptions = (userId) => dispatch => {
-  Adapter.getUserSubscriptions(userId)
+  return Adapter.getUserSubscriptions(userId)
     .then(response => response.json())
     .then(subscriptions => {
-      console.log(subscriptions)
       dispatch({
         type: GET_USER_SUBSCRIPTIONS,
         payload: subscriptions
@@ -21,22 +21,37 @@ export const getUserSubscriptions = (userId) => dispatch => {
     })
 }
 
-export const addUserSubscription = (userId, subscriptionId) => dispatch => {
-  // console.log("add", userId, subscriptionId)
-  // Adapter.addUserSubscription(userId, subscriptionId)
+export const persistUser = () => dispatch => {
+  return Adapter.refresh()
+    .then(response => response.json())
+    .then(user => {
+      dispatch({
+        type: PERSIST_USER,
+        payload: user
+      })
+    })
+}
 
-  dispatch({
-    type: ADD_USER_SUBSCRIPTION
-  })
+export const addUserSubscription = (userId, subscriptionId) => dispatch => {
+  return Adapter.addUserSubscription(userId, subscriptionId)
+    .then(response => response.json())
+    .then(subscriptions => {
+      dispatch({
+        type: ADD_USER_SUBSCRIPTION,
+        payload: subscriptions
+      })
+    })
 }
 
 export const deleteUserSubscription = (userId, subscriptionId) => dispatch => {
-  // console.log("delete",userId,subscriptionId)
-  // Adapter.deleteUserSubscription(userId, subscriptionId)
-
-  dispatch({
-    type: DELETE_USER_SUBSCRIPTION
-  })
+  return Adapter.deleteUserSubscription(userId, subscriptionId)
+    .then(response => response.json())
+    .then(subscriptions => {
+      dispatch({
+        type: DELETE_USER_SUBSCRIPTION,
+        payload: subscriptions
+      })
+    })
 }
 
 export const loginGuest = () => dispatch => {
@@ -71,7 +86,7 @@ export const register = (user) => dispatch => {
 };
 
 export const login = (user) => dispatch => {
-  Adapter.login()
+  return Adapter.login()
     .then(response => response.json())
     .then(user => {
       localStorage.setItem('token', user.token);

@@ -14,12 +14,12 @@ class SubscriptionsDisplay extends Component {
   }
   
   addSubscription = () => {
-    Adapter.addUserSubscription(this.props.user.id, this.props.subscription.id)
+    this.props.addUserSubscription(this.props.user.id, this.props.subscription.id)
     this.setState({ clicked: true })
   }
 
   deleteSubscription = () => {
-    Adapter.deleteUserSubscription(this.props.user.id, this.props.subscription.id)
+    this.props.deleteUserSubscription(this.props.user.id, this.props.subscription.id)
     this.setState({ clicked: false })
   }
 
@@ -80,8 +80,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // addUserSubscription: (userId, subscriptionId) => dispatch(addUserSubscription(userId, subscriptionId)),
-    // deleteUserSubscription: (userId, subscriptionId) => dispatch(deleteUserSubscription(userId, subscriptionId))
+    addUserSubscription: (userId, subscriptionId) => dispatch(addUserSubscription(userId, subscriptionId)),
+    deleteUserSubscription: (userId, subscriptionId) => dispatch(deleteUserSubscription(userId, subscriptionId))
   }
 }
 

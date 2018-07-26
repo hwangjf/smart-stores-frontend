@@ -5,7 +5,8 @@ import {
   LOGOUT, 
   ADD_USER_SUBSCRIPTION, 
   DELETE_USER_SUBSCRIPTION, 
-  GET_USER_SUBSCRIPTIONS 
+  GET_USER_SUBSCRIPTIONS,
+  PERSIST_USER
 } from '../actions/types.js';
 
 const initialState = {
@@ -25,6 +26,11 @@ export default function reducer(state = initialState, action) {
         ...state, 
         currentUser: action.payload
       }
+    case PERSIST_USER:
+      return {
+        ...state,
+        currentUser: action.payload
+      }
     case LOGIN_GUEST:
       return { 
         ...state, 
@@ -41,15 +47,14 @@ export default function reducer(state = initialState, action) {
         userSubscriptions: action.payload
       }
     case ADD_USER_SUBSCRIPTION:
-      console.log(state.userSubscriptions)
-      let userSubscriptions = [...state.userSubscriptions, action.payload]
-      return {...state, userSubscriptions }
-    case DELETE_USER_SUBSCRIPTION:
-      console.log(state.userSubscriptions)
       return {
         ...state,
-        userSubscriptions: [...state.userSubscriptions.slice(0, action.payload)],
-        userSubscriptions: [...state.userSubscriptions.slice(action.payload, 1)]
+        userSubscriptions: action.payload
+      }
+    case DELETE_USER_SUBSCRIPTION:
+      return {
+        ...state,
+        userSubscriptions: action.payload
       }
     default:
       return state;

@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Modal, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import RegisterForm from './RegisterForm';
-
+import {withRouter} from 'react-router-dom';
 
 class RegisterModal extends React.Component {
   state = { modalOpen: false }
 
-  handleOpen = () => this.setState({ modalOpen: true })
-  handleClose = () => this.setState({ modalOpen: false })
+  handleOpen = () => this.setState({ modalOpen: true }, ()=>{this.props.history.push('/register')})
+  handleClose = () => this.setState({ modalOpen: false }, () => { this.props.history.push('/') }) 
 
   render() {
     return (
@@ -30,4 +30,4 @@ class RegisterModal extends React.Component {
 
 
 
-export default RegisterModal;
+export default withRouter(RegisterModal);

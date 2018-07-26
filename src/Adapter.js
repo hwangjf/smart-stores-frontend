@@ -6,7 +6,8 @@ export default class Adapter {
     const config = {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
       }
     }
     return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, config)
@@ -16,7 +17,8 @@ export default class Adapter {
     const config = {
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
       }
     }
     return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, config)
@@ -27,7 +29,13 @@ export default class Adapter {
   }
 
   static getUserSubscriptions(userId) {
-    return fetch(backend_url + '/users/' + userId + '/subscriptions')
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      }
+    }
+    return fetch(backend_url + '/users/' + userId + '/subscriptions', config)
   }
 
   static isLoggedIn() {
@@ -58,6 +66,16 @@ export default class Adapter {
         'content-type': 'application/json'
       },
       body: JSON.stringify(user)
+    })
+  }
+
+  static refresh() {
+    return fetch(backend_url + '/refresh', {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      }
     })
   }
 

@@ -20,7 +20,6 @@ class BodyContainer extends React.Component {
           // ,()=>{console.log(this.state)}
         )
     })
-
   }
 
   render() {

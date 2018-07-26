@@ -20,14 +20,12 @@ import BodyContainer from './BodyContainer';
 
 class TopBarContainer extends Component {
   state = {
-
   }
 
   guestSignin = (event) => {
-    event.preventDefault();
-    this.props.history.push(`/guest`)
-    this.props.loginGuest()
+    return this.props.loginGuest()
       .then(()=>{
+        this.props.history.push(`/${this.props.user.currentUser.username}`)
         this.props.getUserSubscriptions(this.props.user.currentUser.id)
       })
   }
@@ -41,21 +39,20 @@ class TopBarContainer extends Component {
   //   this.props.history.push(`/${this.props.user.currentUser.username}/profile`)
   // }
 
-  render() {
-    
-    return (
+  url = () => {
+    return Adapter.isLoggedIn() ? this.props.history.push(`/${this.props.user.currentUser.username}`) : this.props.history.push(`/`)
+  }
 
+  render() {
+    return (
       <Menu>
-        <Menu.Item header onClick={()=>this.props.history.push('/')}>Smart Stores</Menu.Item>
+        <Menu.Item header onClick={()=>this.url()}>Smart Stores</Menu.Item>
         {this.props.user.currentUser.username 
         ? 
-          <Menu.Item position="left" onClick={this.handleClick}>
-            <Link to='/profile'>
+          <Menu.Item onClick={this.handleClick}>
+            <Link to={`/${this.props.user.currentUser.username}/profile`}>
               {this.props.user.currentUser.username} Profile
             </Link>
-            {/* <Switch>
-              <Route path='/profile' component={ProfileDisplay}/>
-            </Switch> */}
           </Menu.Item>
         :
           null
@@ -80,7 +77,6 @@ class TopBarContainer extends Component {
             </Menu.Item>
           </React.Fragment>
         }
-        {/* <Route exact path="/profile" component={ProfileDisplay}/> */}
       </Menu>
     )
   }
