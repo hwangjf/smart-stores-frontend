@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, Form, Label } from 'semantic-ui-react'
+import { Button, Input, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { login } from '../actions/index';
 

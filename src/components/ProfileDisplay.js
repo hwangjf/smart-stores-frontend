@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Adapter from '../Adapter';
 import { Segment } from 'semantic-ui-react';
 
 class ProfileDisplay extends Component {

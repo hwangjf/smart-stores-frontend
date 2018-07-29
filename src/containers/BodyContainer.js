@@ -1,11 +1,9 @@
 import React from 'react';
-import {Container,Header,Segment} from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import SubscriptionsDisplay from '../components/SubscriptionsDisplay';
 import Adapter from '../Adapter';
 import { connect } from 'react-redux';
-import { getUserSubscriptions } from '../actions/index';
-import ProfileDisplay from '../components/ProfileDisplay';
-import {Route} from 'react-router-dom';
+import { getUserSubscriptions, getSubscriptionIndex } from '../actions/index';
 
 class BodyContainer extends React.Component {
   state = {
@@ -13,37 +11,59 @@ class BodyContainer extends React.Component {
   }
 
   componentDidMount() {
-    Adapter.getSubscriptionIndex()
-      .then(response=>response.json())
-      .then(json=> {
-        this.setState({subscriptions:json}
-          // ,()=>{console.log(this.state)}
-        )
-    })
+    return this.props.location.pathname.slice(-7) === 'profile'
+    ?
+      null
+    :
+      Adapter.getSubscriptionIndex()
+        .then(response => response.json())
+        .then(subscriptions => {
+          let array = []
+          subscriptions.forEach(s=> s.info? array.push(s):null)
+          this.setState({subscriptions:array})
+        })
   }
 
   render() {
     return (
-      <Container fluid>
-        {this.state.subscriptions.length > 0 
-        ? 
-          this.state.subscriptions.map(subscription => <SubscriptionsDisplay key={subscription.id} subscription={subscription} />)
-        : 
-          null}
-      </Container>
+      <React.Fragment>
+      {this.state.subscriptions ?
+        <Container fluid>
+          {this.state.subscriptions.length > 0 
+          ? 
+            this.state.subscriptions.map(subscription => {
+              return (
+                <SubscriptionsDisplay 
+                  key={subscription.id} 
+                  subscription={subscription} 
+                  // clicked={false}
+                />
+              )
+            })
+          : 
+            null
+          }
+        </Container>
+      :
+        null 
+      }
+      </React.Fragment>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    userSubscriptions: state.userSubscriptions
+    user: state.user.currentUser,
+    userSubscriptions: state.user.userSubscriptions,
+    subscriptions: state.subscriptions
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserSubscriptions: () => dispatch(getUserSubscriptions())
+    getUserSubscriptions: (userId) => dispatch(getUserSubscriptions(userId)),
+    getSubscriptionIndex: () => dispatch(getSubscriptionIndex())
   }
 }
 

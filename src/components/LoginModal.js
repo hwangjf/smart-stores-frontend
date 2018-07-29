@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Modal, Header } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
 import {withRouter} from 'react-router-dom'
 
@@ -15,7 +14,7 @@ class LoginModal extends React.Component {
       <Modal
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        trigger={<Button basic color="blue" onClick={this.handleOpen}>Log In</Button>}
+        trigger={<Button inverted color="grey" onClick={this.handleOpen}>Log In</Button>}
         size="tiny"
         closeIcon
       >

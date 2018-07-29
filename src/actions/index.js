@@ -6,9 +6,10 @@ import {
   ADD_USER_SUBSCRIPTION, 
   DELETE_USER_SUBSCRIPTION,
   GET_USER_SUBSCRIPTIONS,
-  PERSIST_USER
+  PERSIST_USER,
+  GET_SUBSCRIPTION_INDEX
 } from './types';
-import Adapter from '../Adapter'; 
+import Adapter from '../Adapter';
 
 export const getUserSubscriptions = (userId) => dispatch => {
   return Adapter.getUserSubscriptions(userId)
@@ -21,14 +22,31 @@ export const getUserSubscriptions = (userId) => dispatch => {
     })
 }
 
+export const getSubscriptionIndex = () => dispatch => {
+  return Adapter.getSubscriptionIndex()
+    .then(response => response.json())
+    .then(subscriptions => {
+        dispatch({
+          type: GET_SUBSCRIPTION_INDEX,
+          payload: {
+            subscriptions: subscriptions
+          }
+       })
+    })
+}
+
 export const persistUser = () => dispatch => {
-  return Adapter.refresh()
+  Adapter.refresh()
     .then(response => response.json())
     .then(user => {
       dispatch({
         type: PERSIST_USER,
-        payload: user
+        payload: {
+          username: user.username, 
+          id: user.id 
+        }
       })
+      dispatch(getUserSubscriptions(user.id))
     })
 }
 
@@ -38,7 +56,9 @@ export const addUserSubscription = (userId, subscriptionId) => dispatch => {
     .then(subscriptions => {
       dispatch({
         type: ADD_USER_SUBSCRIPTION,
-        payload: subscriptions
+        payload: {
+          subscriptions: subscriptions
+        }
       })
     })
 }
@@ -49,7 +69,9 @@ export const deleteUserSubscription = (userId, subscriptionId) => dispatch => {
     .then(subscriptions => {
       dispatch({
         type: DELETE_USER_SUBSCRIPTION,
-        payload: subscriptions
+        payload: {
+          subscriptions: subscriptions
+        }
       })
     })
 }
@@ -96,19 +118,3 @@ export const login = (user) => dispatch => {
       })
     })
 }
-// export const createPost = postData => dispatch => {
-//   fetch('https://jsonplaceholder.typicode.com/posts', {
-//     method: 'POST',
-//     headers: {
-//       'content-type': 'application/json'
-//     },
-//     body: JSON.stringify(postData)
-//   })
-//     .then(res => res.json())
-//     .then(post =>
-//       dispatch({
-//         type: NEW_POST,
-//         payload: post
-//       })
-//     );
-// };

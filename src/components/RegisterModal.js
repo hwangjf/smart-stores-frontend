@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Modal, Header } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 import RegisterForm from './RegisterForm';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class RegisterModal extends React.Component {
   state = { modalOpen: false }
@@ -15,7 +14,7 @@ class RegisterModal extends React.Component {
       <Modal
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        trigger={<Button basic color="blue" onClick={this.handleOpen} >Register</Button>}
+        trigger={<Button color="grey" inverted onClick={this.handleOpen} >Register</Button>}
         size="tiny"
         closeIcon
       >

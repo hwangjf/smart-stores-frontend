@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import { 
   Menu, 
   Button, 
-  // Modal, 
-  // Icon, 
-  // Header, 
-  Search, 
-  // Input, 
-  // Form
+  Search,
+  Icon
 } from 'semantic-ui-react';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
 import { loginGuest, logout, getUserSubscriptions } from '../actions/index';
 import { connect } from 'react-redux';
 import Adapter from '../Adapter';
-import { withRouter, Route, Switch, Link } from 'react-router-dom';
-import ProfileDisplay from '../components/ProfileDisplay';
-import BodyContainer from './BodyContainer';
+import { withRouter, Link } from 'react-router-dom';
 
 class TopBarContainer extends Component {
   state = {
@@ -35,36 +29,33 @@ class TopBarContainer extends Component {
     this.props.logout();
   }
 
-  // handleClick = () => {
-  //   this.props.history.push(`/${this.props.user.currentUser.username}/profile`)
-  // }
-
   url = () => {
     return Adapter.isLoggedIn() ? this.props.history.push(`/${this.props.user.currentUser.username}`) : this.props.history.push(`/`)
   }
 
   render() {
     return (
-      <Menu>
+      <Menu inverted size="huge" >
         <Menu.Item header onClick={()=>this.url()}>Smart Stores</Menu.Item>
         {this.props.user.currentUser.username 
         ? 
-          <Menu.Item onClick={this.handleClick}>
-            <Link to={`/${this.props.user.currentUser.username}/profile`}>
-              {this.props.user.currentUser.username} Profile
-            </Link>
+          <Menu.Item onClick={()=>this.props.history.push(`/${this.props.user.currentUser.username}/profile`)} >
+            
+            <Icon name="user circle"/>  
+              {this.props.user.currentUser.username}
+            
           </Menu.Item>
         :
           null
         }
-        <Menu.Item position="right">
+        {/* <Menu.Item position="right">
           <Search fluid placeholder='Search for a company'/>
-        </Menu.Item>
+        </Menu.Item> */}
         
         {Adapter.isLoggedIn()
         ?
-          <Menu.Item>
-            <Button basic color="red" type="submit" onClick={this.logout}>Log Out</Button>
+          <Menu.Item position="right">
+            <Button floated="right" inverted color="red" type="submit" onClick={this.logout}>Log Out</Button>
           </Menu.Item>
         :
           <React.Fragment>
@@ -73,7 +64,7 @@ class TopBarContainer extends Component {
               <LoginModal />
             </Menu.Item>
             <Menu.Item>
-              <Button basic color="green" type="submit" onClick={this.guestSignin}>Guest</Button>
+              <Button inverted color="green" type="submit" onClick={this.guestSignin}>Guest</Button>
             </Menu.Item>
           </React.Fragment>
         }
