@@ -5,10 +5,12 @@ import { addUserSubscription, deleteUserSubscription } from '../actions/index';
 import Adapter from '../Adapter';
 
 class SubscriptionsDisplay extends Component {
-  state = { clicked: this.props.clicked }
+  constructor(props) {
+    super(props)
 
-  clicked = () => {
-    this.props.clicked ? this.setState({ clicked: true }) : this.setState({clicked:false})
+    this.state = { 
+      clicked: props.clicked 
+    }
   }
 
   handleClick = () => {

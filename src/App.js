@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import ProfileContainer from './containers/ProfileContainer';
 import Adapter from './Adapter';
 import { getUserSubscriptions, persistUser } from './actions/index';
+import NewsContainer from './containers/NewsContainer';
 
 class App extends Component {
   
@@ -47,7 +48,9 @@ class App extends Component {
               </Segment>
             </Grid.Column>
             <Grid.Column width={3} floated="right" >
-              <Segment>3</Segment>
+              <Segment>
+                <NewsContainer />
+              </Segment>
               <Segment>4</Segment>
             </Grid.Column>
           </Grid.Row>

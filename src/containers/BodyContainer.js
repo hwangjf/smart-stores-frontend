@@ -32,13 +32,10 @@ class BodyContainer extends React.Component {
           {this.state.subscriptions.length > 0 
           ? 
             this.state.subscriptions.map(subscription => {
-              return (
-                <SubscriptionsDisplay 
-                  key={subscription.id} 
-                  subscription={subscription} 
-                  // clicked={false}
-                />
-              )
+              if (this.props.userSubscriptions.map(s=>s.id).includes(subscription.id)) {
+                return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={true}/>
+              }
+              return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={false}/>
             })
           : 
             null
