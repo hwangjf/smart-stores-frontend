@@ -14,7 +14,7 @@ class RegisterModal extends React.Component {
       <Modal
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        trigger={<Button color="grey" inverted onClick={this.handleOpen} >Register</Button>}
+        trigger={<Button inverted onClick={this.handleOpen} >Register</Button>}
         size="tiny"
         closeIcon
       >

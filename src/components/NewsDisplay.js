@@ -1,12 +1,22 @@
-import React, { Component } from 'react'
-import { Segment } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Card } from 'semantic-ui-react';
 
 class NewsDisplay extends Component {
   render() {
     return (
-      <Segment>
-        <h1>{this.props.article.title}</h1>
-      </Segment>
+      <Card>
+        <Card.Content>
+            <a
+              href={`${this.props.article.url}`}
+              target="_blank"
+            >
+              {this.props.article.title}
+            </a>
+        </Card.Content>
+        <Card.Content>
+          {this.props.article.description}
+        </Card.Content >
+      </Card>
     )
   }
 }

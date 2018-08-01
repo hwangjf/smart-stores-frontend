@@ -7,9 +7,34 @@ import {
   DELETE_USER_SUBSCRIPTION,
   GET_USER_SUBSCRIPTIONS,
   PERSIST_USER,
-  GET_SUBSCRIPTION_INDEX
+  GET_SUBSCRIPTION_INDEX,
+  NEWS_SUBSCRIPTION,
+  SET_SUBSCRIPTION_DATE,
+  SET_SUBSCRIPTION_COST
 } from './types';
 import Adapter from '../Adapter';
+
+export const setSubscriptionDate = (userId, subscriptionId, date) => dispatch => {
+  console.log(userId, subscriptionId, date)
+  // debugger
+  Adapter.setSubscriptionDate(userId, subscriptionId, date)
+}
+
+export const setSubscriptionCost = (userId, subscriptionId, cost) => dispatch => {
+  console.log(userId, subscriptionId, cost)
+  Adapter.setSubscriptionCost(userId, subscriptionId, cost)
+  // dispatch({
+  //   type:,
+  //   payload:
+  // })
+}
+
+export const newsSubscription = (subscription) => dispatch => {
+  dispatch({
+    type: NEWS_SUBSCRIPTION,
+    payload: subscription
+  })
+}
 
 export const getUserSubscriptions = (userId) => dispatch => {
   return Adapter.getUserSubscriptions(userId)

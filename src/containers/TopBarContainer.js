@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { 
-  Menu, 
-  Button, 
-  Search,
-  Icon
-} from 'semantic-ui-react';
+import { Menu, Button, Icon } from 'semantic-ui-react';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
 import { loginGuest, logout, getUserSubscriptions } from '../actions/index';
 import { connect } from 'react-redux';
 import Adapter from '../Adapter';
-import { withRouter, Link } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class TopBarContainer extends Component {
   state = {
@@ -35,8 +30,8 @@ class TopBarContainer extends Component {
 
   render() {
     return (
-      <Menu inverted size="huge" >
-        <Menu.Item header onClick={()=>this.url()}>Smart Stores</Menu.Item>
+      <Menu inverted color="blue" size="huge" >
+        <Menu.Item style={{fontSize:"20px"}} fitted="vertically" color="blue" header onClick={()=>this.url()}>Smart Stores</Menu.Item>
         {this.props.user.currentUser.username 
         ? 
           <Menu.Item onClick={()=>this.props.history.push(`/${this.props.user.currentUser.username}/profile`)} >
@@ -48,14 +43,11 @@ class TopBarContainer extends Component {
         :
           null
         }
-        {/* <Menu.Item position="right">
-          <Search fluid placeholder='Search for a company'/>
-        </Menu.Item> */}
         
         {Adapter.isLoggedIn()
         ?
           <Menu.Item position="right">
-            <Button floated="right" inverted color="red" type="submit" onClick={this.logout}>Log Out</Button>
+            <Button floated="right" inverted type="submit" onClick={this.logout}>Log Out</Button>
           </Menu.Item>
         :
           <React.Fragment>
@@ -64,7 +56,7 @@ class TopBarContainer extends Component {
               <LoginModal />
             </Menu.Item>
             <Menu.Item>
-              <Button inverted color="green" type="submit" onClick={this.guestSignin}>Guest</Button>
+              <Button inverted type="submit" onClick={this.guestSignin}>Guest</Button>
             </Menu.Item>
           </React.Fragment>
         }

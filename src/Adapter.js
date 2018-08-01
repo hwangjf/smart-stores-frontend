@@ -1,6 +1,29 @@
 const backend_url = 'http://localhost:4000/api/v1'
 
 export default class Adapter {
+  static setSubscriptionDate(userId, subscriptionId, date) {
+    const config = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      },
+      body: JSON.stringify({ date: date })
+    }
+    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId + '/date', config)
+  }
+
+  static setSubscriptionCost(userId, subscriptionId, cost) {
+    const config = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      },
+      body: JSON.stringify({cost: cost})
+    }
+    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId + '/cost', config)
+  }
 
   static addUserSubscription(userId, subscriptionId) {
     const config = {
@@ -88,9 +111,4 @@ export default class Adapter {
       body: JSON.stringify(user)
     })
   }
-
-  // static getKey() {
-  //   return 1
-  //   // return API_KEY
-  // }
 }

@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Header, Container, Divider } from 'semantic-ui-react';
 import ProfileDisplay from '../components/ProfileDisplay';
 
 class ProfileContainer extends Component {
 
   render() {
     return (
-      <Segment>
-        {this.props.userSubscriptions.map(subscription => {
-          return <ProfileDisplay key={subscription.id} subscription={subscription} /> 
-        })}
-      </Segment>
+      <Container>
+        <Header
+          as="h4"
+        >
+          Subscription based retail and service providers
+        </Header>
+        <Divider />
+        <Segment.Group>
+          {this.props.userSubscriptions.map(subscription => {
+            return <ProfileDisplay key={subscription.id} subscription={subscription} /> 
+          })}
+        </Segment.Group>
+      </Container>
     )
   }
 }

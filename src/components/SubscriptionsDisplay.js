@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Segment, Image, Button, Header, Icon } from 'semantic-ui-react';
+import { Image, Button, Card, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addUserSubscription, deleteUserSubscription } from '../actions/index';
+import { addUserSubscription, deleteUserSubscription, newsSubscription } from '../actions/index';
 import Adapter from '../Adapter';
 
 class SubscriptionsDisplay extends Component {
@@ -29,68 +29,94 @@ class SubscriptionsDisplay extends Component {
 
   render() {
     return (
-      <Segment.Group>
-        <Segment.Group>
-          <Segment>
-            {this.props.subscription.info
-            ?
-              <React.Fragment>
-                <Image
-                  src={this.props.subscription.info.logo} 
-                  size="mini" 
-                  inline 
-                  style={{marginRight:"8px"}}
-                  bordered
-                  href={`https://${this.props.subscription.info.domain}/`}
-                  target="_blank"
-                />
+      <Card 
+        style={{height:"25%", cursor:"default"}} 
+        fluid 
+        onClick={()=>this.props.newsSubscription(encodeURI(this.props.subscription.name))}
+      >
+        <Card.Header textAlign="center">
+          {this.props.subscription.info
+          ?
+            <Segment style={{ paddingTop: "3%", paddingBottom: "3%"}}>
+              <Image
+                src={this.props.subscription.info.logo} 
+                size="mini" 
+                inline
+                style={{marginRight:"5%", cursor:"pointer"}}
+                onClick={() => window.open(`https://${this.props.subscription.info.domain}/`, "_blank")}
+              />
 
-                <a
-                  href={`https://${this.props.subscription.info.domain}/`}
-                  target="_blank"
-                >
-                  <strong>{this.props.subscription.name}</strong>
-                </a>
-                
-                <Icon
-                  // as="a"
-                  style={{marginLeft:"10px", cursor:"pointer"}}
-                  circular
-                  // href={`https://${this.props.subscription.info.domain}/`}
-                  // target="_blank"
-                  color="blue"
-                  name="twitter"
-                  floated="right"                  
-                  onClick={() => window.open(`https://twitter.com/${this.props.subscription.info.twitter.handle}`,"_blank")}
-                />
+              <span
+                onClick={() => window.open(`https://${this.props.subscription.info.domain}/`, "_blank")}
+                style={{ 
+                  cursor: "pointer", 
+                  marginTop: "auto", 
+                  color: "#3366BB",
+                  fontSize: "16px"
+                }}
+              >
+                {this.props.subscription.name}
+              </span>
 
-                {Adapter.isLoggedIn()
-                ? 
-                  <Button 
-                    id={this.props.subscription.id} 
-                    floated="right" 
-                    basic
-                    color={this.state.clicked ? "red" : "green"} 
-                    icon={this.state.clicked ? "cancel" : "add"} 
-                    circular
-                    onClick={this.handleClick}
-                  >
-                  </Button>
-                :
-                  null
-                }
-
-              </React.Fragment>
+            </Segment>
             : 
               null}
-          </Segment>
-        </Segment.Group>
+          </Card.Header >
         {this.props.subscription.info
         ?
-          <Segment>{this.props.subscription.info.description}</Segment>
+          <Card.Content style={{ color:"black" }}>
+            {this.props.subscription.info.description}
+          </Card.Content>
         :
-          null}
-      </Segment.Group>
+        null}
+        
+        <Card.Content >
+          {this.props.subscription.info
+            ?
+            <React.Fragment>
+              <Button
+                style={{ cursor: "pointer" }}
+                circular
+                color="twitter"
+                icon="twitter"
+                floated="left"
+                size="small"
+                onClick={() => window.open(`https://twitter.com/${this.props.subscription.info.twitter.handle}`, "_blank")}
+              >
+              </Button>
+              <Button
+                style={{ cursor: "pointer" }}
+                circular
+                color="facebook"
+                icon="facebook f"
+                floated="left"
+                size="small"
+                onClick={() => window.open(`https://facebook.com/${this.props.subscription.info.facebook.handle}`, "_blank")}
+              >
+              </Button>
+            
+            {Adapter.isLoggedIn()
+              ?
+                <Button
+                  id={this.props.subscription.id}
+                  floated="right"
+                  size="small"
+                  color={this.state.clicked ? "red" : "green"}
+                  icon={this.state.clicked ? "cancel" : "add"}
+                  circular
+                  onClick={this.handleClick}
+                >
+                </Button>
+                :
+                null
+              }
+
+            </React.Fragment>
+            :
+            null}
+        
+        </Card.Content>
+      </Card>
     )
   }
 }
@@ -105,7 +131,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addUserSubscription: (userId, subscriptionId) => dispatch(addUserSubscription(userId, subscriptionId)),
-    deleteUserSubscription: (userId, subscriptionId) => dispatch(deleteUserSubscription(userId, subscriptionId))
+    deleteUserSubscription: (userId, subscriptionId) => dispatch(deleteUserSubscription(userId, subscriptionId)),
+    newsSubscription: (subscription) => dispatch(newsSubscription(subscription))
   }
 }
 
