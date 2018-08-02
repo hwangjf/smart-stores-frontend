@@ -47,9 +47,9 @@ class App extends Component {
                     input="text"
                     icon="search"
                     iconPosition="left"
-                    style={{marginTop:"20px", width:"75%"}} 
+                    style={{marginTop:"20px", width:"90%"}} 
                     fluid 
-                    placeholder='Search or add company' 
+                    placeholder='Search for name or description' 
                     size="large"
                     name="term"
                     value={this.state.term}

@@ -13,7 +13,7 @@ class BodyContainer extends React.Component {
   }
 
   filterSubscriptions = (array) => {
-    return array.filter(s=> s.name.toLowerCase().includes(this.props.term.toLowerCase()))
+    return array.filter(s => s.name.toLowerCase().includes(this.props.term.toLowerCase()) || s.info.description.toLowerCase().includes(this.props.term.toLowerCase()))
   }
 
   render() {

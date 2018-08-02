@@ -17,18 +17,21 @@ export default class SideBarContainer extends Component {
           style={{textDecoration:"line-through"}}
           active={activeItem === 'Best Rated'}
           onClick={this.handleItemClick}
+          disabled
         />
         <Menu.Item
           name='mostComments'
           style={{ textDecoration: "line-through" }}
           active={activeItem === 'mostComments'}
           onClick={this.handleItemClick}
+          disabled
         />
         <Menu.Item
           name='mostPopular'
           style={{ textDecoration: "line-through" }}
           active={activeItem === 'mostPopular'}
           onClick={this.handleItemClick}
+          disabled
         />
       </Menu>
     )
