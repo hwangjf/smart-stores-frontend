@@ -1,47 +1,53 @@
-import React, { Component } from 'react'
-import { Menu, Button, Modal, Icon, Header, Search, Input, Form} from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Menu, Button, Icon } from 'semantic-ui-react';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
-import { loginGuest,logout } from '../actions/index';
+import { loginGuest, logout, getUserSubscriptions } from '../actions/index';
 import { connect } from 'react-redux';
 import Adapter from '../Adapter';
-import { withRouter } from 'react-router';
+import {withRouter} from 'react-router-dom';
 
 class TopBarContainer extends Component {
-  state = {}
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  state = {
+  }
 
   guestSignin = (event) => {
-    event.preventDefault();
-    
-    this.props.loginGuest();
+    return this.props.loginGuest()
+      .then(()=>{
+        this.props.history.push(`/${this.props.user.currentUser.username}`)
+        this.props.getUserSubscriptions(this.props.user.currentUser.id)
+      })
   }
 
   logout = (event) => {
-    event.preventDefault();
-
+    this.props.history.push('/')
     this.props.logout();
   }
 
+  url = () => {
+    return Adapter.isLoggedIn() ? this.props.history.push(`/${this.props.user.currentUser.username}`) : this.props.history.push(`/`)
+  }
+
   render() {
-    const { activeItem } = this.state
-
     return (
-
-      <Menu>
-        <Menu.Item header>Smart Stores</Menu.Item>
-
-        <Menu.Item position="right">
-          <Search fluid placeholder='Search for a company'/>
-        </Menu.Item>
-        
+      <Menu inverted color="blue" size="huge" >
+        <Menu.Item style={{fontSize:"20px"}} fitted="vertically" color="blue" header onClick={()=>this.url()}>Smart Stores</Menu.Item>
+        {this.props.user.currentUser.username 
+        ? 
+          <Menu.Item onClick={()=>this.props.history.push(`/${this.props.user.currentUser.username}/profile`)} >
+            
+            <Icon name="user circle"/>  
+              {this.props.user.currentUser.username}
+            
+          </Menu.Item>
+        :
+          null
+        }
         
         {Adapter.isLoggedIn()
         ?
-        
-          <Menu.Item>
-            <Button basic color="red" type="submit" onClick={this.logout}>Log Out</Button>
+          <Menu.Item position="right">
+            <Button floated="right" inverted type="submit" onClick={this.logout}>Log Out</Button>
           </Menu.Item>
         :
           <React.Fragment>
@@ -50,7 +56,7 @@ class TopBarContainer extends Component {
               <LoginModal />
             </Menu.Item>
             <Menu.Item>
-              <Button basic color="green" type="submit" onClick={this.guestSignin}>Test</Button>
+              <Button inverted type="submit" onClick={this.guestSignin}>Guest</Button>
             </Menu.Item>
           </React.Fragment>
         }
@@ -62,8 +68,15 @@ class TopBarContainer extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     loginGuest: () => dispatch(loginGuest()),
-    logout: ()=> dispatch(logout())
+    logout: () => dispatch(logout()),
+    getUserSubscriptions: (userId) => dispatch(getUserSubscriptions(userId))
   }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(TopBarContainer));
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopBarContainer));

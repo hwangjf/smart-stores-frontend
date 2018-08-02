@@ -1,36 +1,71 @@
 import React from 'react';
-import {Container,Header} from 'semantic-ui-react'
+import { Container, Card, Header, Divider } from 'semantic-ui-react';
+import SubscriptionsDisplay from '../components/SubscriptionsDisplay';
+import { connect } from 'react-redux';
+import { getUserSubscriptions, getSubscriptionIndex } from '../actions/index';
 
 class BodyContainer extends React.Component {
-  state = {
 
+  componentDidUpdate(prevProps) {
+    if (this.props.user.id !== prevProps.user.id) {
+      this.props.getUserSubscriptions(this.props.user.id)
+    }
+  }
+
+  filterSubscriptions = (array) => {
+    return array.filter(s=> s.name.toLowerCase().includes(this.props.term.toLowerCase()))
   }
 
   render() {
     return (
-      <Container fluid>
-        <Header as='h2'>Dogs Roles with Humans</Header>
-        <p>
-          Domestic dogs inherited complex behaviors, such as bite inhibition, from their wolf
-          ancestors, which would have been pack hunters with complex body language. These
-          sophisticated forms of social cognition and communication may account for their
-          trainability, playfulness, and ability to fit into human households and social situations,
-          and these attributes have given dogs a relationship with humans that has enabled them to
-          become one of the most successful species on the planet today.
-      </p>
-        <p>
-          The dogs' value to early human hunter-gatherers led to them quickly becoming ubiquitous
-          across world cultures. Dogs perform many roles for people, such as hunting, herding, pulling
-          loads, protection, assisting police and military, companionship, and, more recently, aiding
-          handicapped individuals. This impact on human society has given them the nickname "man's
-          best friend" in the Western world. In some cultures, however, dogs are also a source of
-          meat.
-      </p>
+      <Container>
+        
+        {this.props.subscriptions ?
+        <Container fluid>
+          <Header
+            as="h4"
+          >
+            Subscription based retail and service providers
+          </Header>
+          <Divider />
+          
+          <Card.Group itemsPerRow={3} centered>
+            {this.props.subscriptions.length > 0 
+            ? 
+              this.filterSubscriptions(this.props.subscriptions).map(subscription => {
+                if (this.props.userSubscriptions.map(s=>s.id).includes(subscription.id)) {
+                  return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={true}/>
+                }
+                return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={false}/>
+              })
+            : 
+              null
+            }
+          </Card.Group>
+
+        </Container>
+      :
+        null 
+      }
+
       </Container>
     )
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    user: state.user.currentUser,
+    userSubscriptions: state.user.userSubscriptions,
+    subscriptions: state.subscription.subscriptions
+  }
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getUserSubscriptions: (userId) => dispatch(getUserSubscriptions(userId)),
+    getSubscriptionIndex: () => dispatch(getSubscriptionIndex())
+  }
+}
 
-export default BodyContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(BodyContainer);

@@ -14702,7 +14702,7 @@ $.fn.search.settings = {
   cache          : true,
 
   // whether no results errors should be shown
-  showNoResults  : true,
+  showNoResults  : false,
 
   // transition settings
   transition     : 'scale',

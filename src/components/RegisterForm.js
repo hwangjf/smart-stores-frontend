@@ -1,32 +1,38 @@
 import React from 'react';
-import { Button, Input, Checkbox, Form, Label } from 'semantic-ui-react';
+import { Button, Input, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { register, login } from '../actions/index';
+import { withRouter } from 'react-router-dom';
 
 class RegisterForm extends React.Component {
   state = {
-    firstName: "",
-    lastName: "",
-    email: "",
+    // firstName: "",
+    // lastName: "",
+    // email: "",
     username: "",
     password: ""
   }
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value },()=>{console.log(this.state)})
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
 
     const user = this.state
-    this.props.logIn(user)
+    this.props.register(user)
+    // .then(() => this.props.login(user))
     this.props.handleClose()
   }
   
   render() {
     return (
-      <Form widths="equal" size="tiny">
-        <Form.Field required>
+      <Form widths="equal" size="tiny" onSubmit={this.handleSubmit}>
+        {/*
+          REGISTER FORM THAT IS NOT CONNECTED TO THE BACKEND
+        */}
+        {/* <Form.Field required>
           <label>First Name:</label>
           <Input 
             name="firstName" 
@@ -54,7 +60,7 @@ class RegisterForm extends React.Component {
             iconPosition="left" 
             placeholder="E-mail"
           />
-        </Form.Field>
+        </Form.Field> */}
         <Form.Field required>
           <label>Username:</label>
           <Input 
@@ -70,6 +76,7 @@ class RegisterForm extends React.Component {
           <Input 
             icon="key"
             name="password"
+            type="password"
             onChange={this.handleChange}
             value={this.state.password}
             iconPosition="left" 
@@ -82,5 +89,11 @@ class RegisterForm extends React.Component {
   }
 } 
 
+function mapDispatchToProps(dispatch) {
+  return {
+    register: (user) => dispatch(register(user)),
+    login: (user) => dispatch(login(user))
+  }
+}
 
-export default RegisterForm
+export default withRouter(connect(null, mapDispatchToProps)(RegisterForm));
