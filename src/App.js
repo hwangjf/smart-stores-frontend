@@ -12,13 +12,17 @@ import { getUserSubscriptions, persistUser, getSubscriptionIndex } from './actio
 import NewsContainer from './containers/NewsContainer';
 
 class App extends Component {
-  state = { term: '' }
+  state = { 
+    term: '',
+    clicked: false
+  }
   
   componentDidMount() {
     this.props.getSubscriptionIndex()
     return Adapter.isLoggedIn()
-    ? 
-      this.props.persistUser()
+    ?
+      this.props.persistUser(this.props)
+        .then(()=>this.props.history.push(`/${this.props.user.currentUser.username}`))
     : 
       null
   }
@@ -37,18 +41,32 @@ class App extends Component {
             <Grid.Column width={5}></Grid.Column>
           
             <Grid.Column width={6} >
-              <Input 
-                input="text"
-                icon="search"
-                iconPosition="left"
-                style={{marginTop:"20px", width:"100%"}} 
-                fluid 
-                placeholder='Search for a company' 
-                size="large"
-                name="term"
-                value={this.state.term}
-                onChange={this.handleSearch}
-              />
+              <Grid.Row>
+                <Grid.Column>
+                  <Input 
+                    input="text"
+                    icon="search"
+                    iconPosition="left"
+                    style={{marginTop:"20px", width:"75%"}} 
+                    fluid 
+                    placeholder='Search or add company' 
+                    size="large"
+                    name="term"
+                    value={this.state.term}
+                    onChange={this.handleSearch}
+                    // action="Create"
+                  >
+                  </Input>
+                {/* </Grid.Column>
+                <Grid.Column> */}
+                  {/* <Button
+                    floated="right"
+                    attached="left"
+                  >
+                    {this.state.clicked ? 'hi' : 'notclicked'}
+                  </Button> */}
+                </Grid.Column>
+              </Grid.Row>
             </Grid.Column>
           
             <Grid.Column width={5}></Grid.Column>

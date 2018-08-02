@@ -12,17 +12,22 @@ class ProfileDisplay extends React.Component {
   componentDidMount() {
     this.props.getUserSubscriptionsInfo(this.props.user.id, this.props.subscription.id)
       .then(()=>{
-        this.setState({
-      date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
-      cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
-    })})
+        if (this.props.userSubscriptionsInfo.length > 0) {
+          this.setState({
+            date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
+            cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
+          })
+        }
+    })
   }
 
   handleChange = (event) => {
     this.setState({
       date: event.target.value
     }, ()=>{
-      this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date)
+      if (this.props.userSubscriptionsInfo.length > 0) {
+        this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date)
+      }
     })
   }
   
@@ -33,7 +38,6 @@ class ProfileDisplay extends React.Component {
   }
 
   render() {
-    console.log(this.props.userSubscriptionsInfo, this.props.subscription)
     return (
       <Segment.Group horizontal 
         onClick={() => this.props.newsSubscription(encodeURI(this.props.subscription.name))}

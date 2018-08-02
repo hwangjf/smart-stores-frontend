@@ -80,13 +80,13 @@ export const getSubscriptionIndex = () => dispatch => {
 }
 
 export const persistUser = () => dispatch => {
-  Adapter.refresh()
+  return Adapter.refresh()
     .then(response => response.json())
     .then(user => {
       dispatch({
         type: PERSIST_USER,
         payload: {
-          username: user.username, 
+          username: user.username,
           id: user.id 
         }
       })
@@ -140,25 +140,37 @@ export const logout = () => dispatch => {
 }
 
 export const register = (user) => dispatch => {
-  Adapter.register(user)
+  return Adapter.register(user)
     .then(response => response.json())
     .then(user => {
-      localStorage.setItem('token', user.token);
-      dispatch({
-        type: REGISTER,
-        payload: user
-      })
+      if (user.errors) {
+        dispatch({
+          type: LOGOUT
+        })
+      } else {
+        localStorage.setItem('token', user.token);
+        dispatch({
+          type: REGISTER,
+          payload: user
+        })
+      }
     })
 };
 
 export const login = (user) => dispatch => {
-  return Adapter.login()
+  return Adapter.login(user)
     .then(response => response.json())
     .then(user => {
-      localStorage.setItem('token', user.token);
-      dispatch({
-        type: LOGIN,
-        payload: user
-      })
+      if (user.errors) {
+        dispatch({
+          type: LOGOUT
+        })
+      } else {
+        localStorage.setItem('token', user.token);
+        dispatch({
+          type: LOGIN,
+          payload: user
+        })
+      }
     })
 }

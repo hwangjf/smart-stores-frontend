@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Input, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { login } from '../actions/index';
+import { withRouter } from 'react-router-dom';
 
 class LoginForm extends React.Component {
   state = {
@@ -21,6 +22,8 @@ class LoginForm extends React.Component {
       password: this.state.password
     }
     this.props.login(user)
+    // .then(() => this.history.push(`/${user.username}`))
+    this.props.history.push(`/${this.state.username}`)
     this.props.handleClose()
   }
 
@@ -60,8 +63,8 @@ class LoginForm extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: (username, password) => dispatch(login(username, password))
+    login: (user) => dispatch(login(user))
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default withRouter(connect(null, mapDispatchToProps)(LoginForm));

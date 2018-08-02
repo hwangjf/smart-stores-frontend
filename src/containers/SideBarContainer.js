@@ -14,16 +14,19 @@ export default class SideBarContainer extends Component {
         <Menu.Item header>Sort By</Menu.Item>
         <Menu.Item
           name='Best Rated'
+          style={{textDecoration:"line-through"}}
           active={activeItem === 'Best Rated'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name='mostComments'
+          style={{ textDecoration: "line-through" }}
           active={activeItem === 'mostComments'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name='mostPopular'
+          style={{ textDecoration: "line-through" }}
           active={activeItem === 'mostPopular'}
           onClick={this.handleItemClick}
         />

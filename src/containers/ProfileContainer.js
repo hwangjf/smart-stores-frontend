@@ -15,9 +15,15 @@ class ProfileContainer extends Component {
         </Header>
         <Divider />
         <Segment.Group>
-          {this.props.userSubscriptions.map(subscription => {
+          {this.props.userSubscriptions.length > 0 ?
+            this.props.userSubscriptions.map(subscription => {
             return <ProfileDisplay key={subscription.id} subscription={subscription} /> 
-          })}
+          })
+          :
+          <h3>
+            {"Please add some subscriptions"}
+          </h3>
+          }
         </Segment.Group>
       </Container>
     )
