@@ -10,23 +10,42 @@ import {
   GET_SUBSCRIPTION_INDEX,
   NEWS_SUBSCRIPTION,
   SET_SUBSCRIPTION_DATE,
-  SET_SUBSCRIPTION_COST
+  SET_SUBSCRIPTION_COST,
+  GET_USER_SUBSCRIPTIONS_INFO
 } from './types';
 import Adapter from '../Adapter';
 
+export const getUserSubscriptionsInfo = (userId, subscriptionId) => dispatch => {
+  return Adapter.getUserSubscriptionsInfo(userId, subscriptionId)
+    .then(response => response.json())
+    .then(usersubscription => {
+      dispatch({
+        type: GET_USER_SUBSCRIPTIONS_INFO,
+        payload: usersubscription
+      })
+    })
+}
+
 export const setSubscriptionDate = (userId, subscriptionId, date) => dispatch => {
-  console.log(userId, subscriptionId, date)
-  // debugger
   Adapter.setSubscriptionDate(userId, subscriptionId, date)
+    .then(response => response.json())
+    .then(usersubscription=> {
+      dispatch({
+        type: SET_SUBSCRIPTION_DATE,
+        payload: usersubscription
+      })
+    })
 }
 
 export const setSubscriptionCost = (userId, subscriptionId, cost) => dispatch => {
-  console.log(userId, subscriptionId, cost)
   Adapter.setSubscriptionCost(userId, subscriptionId, cost)
-  // dispatch({
-  //   type:,
-  //   payload:
-  // })
+    .then(response => response.json())
+    .then(usersubscription => {
+      dispatch({
+        type: SET_SUBSCRIPTION_COST,
+        payload: usersubscription
+      })
+    })
 }
 
 export const newsSubscription = (subscription) => dispatch => {

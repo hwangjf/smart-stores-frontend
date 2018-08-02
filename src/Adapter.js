@@ -1,6 +1,17 @@
 const backend_url = 'http://localhost:4000/api/v1'
 
 export default class Adapter {
+  static getUserSubscriptionsInfo(userId, subscriptionId) {
+    const config = {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': localStorage.getItem('token')
+      }
+    }
+    return fetch(backend_url + '/users/' + userId + '/subscriptions/' + subscriptionId, config)
+  }
+
   static setSubscriptionDate(userId, subscriptionId, date) {
     const config = {
       method: 'POST',

@@ -31,9 +31,11 @@ class App extends Component {
     return (
       <div>
         <TopBarContainer />
+
         <Grid column="equal" style={{ backgroundColor:"#f6f6f6"}}>
           <Grid.Row>
             <Grid.Column width={5}></Grid.Column>
+          
             <Grid.Column width={6} >
               <Input 
                 input="text"
@@ -48,13 +50,16 @@ class App extends Component {
                 onChange={this.handleSearch}
               />
             </Grid.Column>
+          
             <Grid.Column width={5}></Grid.Column>
+          
           </Grid.Row>
           
           <Grid.Row stretched>
             <Grid.Column width={2} floated="left" fixed="left" >
               <SideBarContainer />
             </Grid.Column>
+
             <Grid.Column width={11} >
               <Segment>
               <Switch >
@@ -64,11 +69,13 @@ class App extends Component {
               </Switch>
               </Segment>
             </Grid.Column>
+
             <Grid.Column width={3} floated="left">
               <Segment style={{marginRight:"5%"}}>
                 <NewsContainer />
               </Segment>
             </Grid.Column>
+          
           </Grid.Row>
         </Grid>
       </div>

@@ -1,66 +1,68 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Segment, Header } from 'semantic-ui-react';
-import { newsSubscription, setSubscriptionDate, setSubscriptionCost } from '../actions/index';
-import DatePicker from "react-datepicker";
-
-import moment from "moment";
-
-import 'react-datepicker/dist/react-datepicker.css';
+import { Segment, Header, Input } from 'semantic-ui-react';
+import { newsSubscription, setSubscriptionDate, setSubscriptionCost, getUserSubscriptionsInfo } from '../actions/index';
 
 class ProfileDisplay extends React.Component {
   state = { 
-    date: moment(),
-    cost: 0 
+    date: '',
+    cost: ''
   }
 
-  handleChange = date => {
+  componentDidMount() {
+    this.props.getUserSubscriptionsInfo(this.props.user.id, this.props.subscription.id)
+      .then(()=>{
+        this.setState({
+      date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
+      cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
+    })})
+  }
+
+  handleChange = (event) => {
     this.setState({
-      date: date
+      date: event.target.value
     }, ()=>{
-      // console.log(this.props.user.id, this.props.subscription.id, this.state.date.to);
-      this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date.format("L"))
-    });
-  };
+      this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date)
+    })
+  }
   
   handleCost = (event) => {
     this.setState({cost: event.target.value},()=>{
-      console.log(this.props.user.id, this.props.subscription.id, this.state.cost);
-      this.props.setSubscriptionDate(this.props.user.id, this.props.subscription.id, this.state.cost)
+      this.props.setSubscriptionCost(this.props.user.id, this.props.subscription.id, this.state.cost)
     })
-
   }
+
   render() {
+    console.log(this.props.userSubscriptionsInfo, this.props.subscription)
     return (
-      <Segment
+      <Segment.Group horizontal 
         onClick={() => this.props.newsSubscription(encodeURI(this.props.subscription.name))}
       >
-        <Header
-          as="h4"
-          floated="left"
-        >
-        {this.props.subscription.name}
-        </Header>
-        
-        <Header
-          as="h4"
-          floated="right"
-        >
-          Cost per month: $  
-          <input 
+        <Segment compact>
+          <Header as="h4">
+            {this.props.subscription.name}
+          </Header>
+        </Segment>
+
+        <Segment textAlign="right" floated="right" secondary>
+          <Input 
+            size="mini"
+            style={{ marginRight: "5%"}}
+            type="date"
+            onChange={this.handleChange} 
+            />  
+
+          <Input 
+            size="mini"
+            label="Cost per month: $"
             type="number"
             value={this.props.cost}
             onChange={this.handleCost}
-            style={{marginLeft:"4px", width:"50px"}}
-          />
-        </Header>
-        
-        <DatePicker
-          style={{margin:"auto"}}
-          selected={this.props.date}
-          onChange={this.handleChange} 
-          />
-      </Segment>
+            style={{ width: "65px", marginRight: "28%" }}
+            />
+        </Segment>
+      
+      </Segment.Group>
     )
   }
 }
@@ -70,7 +72,8 @@ function mapStateToProps(state) {
     user: state.user.currentUser,
     userSubscriptions: state.user.userSubscriptions,
     subscriptionCost: state.user.subscriptionCost,
-    subscriptionDate: state.user.subscriptionDate
+    subscriptionDate: state.user.subscriptionDate,
+    userSubscriptionsInfo: state.user.userSubscriptionsInfo
   }
 }
 
@@ -78,7 +81,8 @@ function mapDispatchToProps(dispatch) {
   return {
     newsSubscription: (subscription) => dispatch(newsSubscription(subscription)),
     setSubscriptionDate: (userId, subscriptionId, date) => dispatch(setSubscriptionDate(userId, subscriptionId, date)),
-    setSubscriptionCost: (userId, subscriptionId, cost) => dispatch(setSubscriptionCost(userId, subscriptionId, cost))
+    setSubscriptionCost: (userId, subscriptionId, cost) => dispatch(setSubscriptionCost(userId, subscriptionId, cost)),
+    getUserSubscriptionsInfo: (userId, subscriptionId) => dispatch(getUserSubscriptionsInfo(userId, subscriptionId))
   }
 }
 

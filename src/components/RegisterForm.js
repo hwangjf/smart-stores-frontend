@@ -26,7 +26,10 @@ class RegisterForm extends React.Component {
   render() {
     return (
       <Form widths="equal" size="tiny">
-        <Form.Field required>
+        {/*
+          REGISTER FORM THAT IS NOT CONNECTED TO THE BACKEND
+        */}
+        {/* <Form.Field required>
           <label>First Name:</label>
           <Input 
             name="firstName" 
@@ -54,7 +57,7 @@ class RegisterForm extends React.Component {
             iconPosition="left" 
             placeholder="E-mail"
           />
-        </Form.Field>
+        </Form.Field> */}
         <Form.Field required>
           <label>Username:</label>
           <Input 

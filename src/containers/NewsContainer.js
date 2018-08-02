@@ -3,7 +3,6 @@ import NewsDisplay from '../components/NewsDisplay';
 import UUID from 'uuid';
 import { Header, Card, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-// import { newsSubscription } from '../actions';
 
 class NewsContainer extends Component {
   state = { newsFeed:[] }
@@ -16,9 +15,15 @@ class NewsContainer extends Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.term !== prevProps.term) {
-      fetch(`http://localhost:4000/api/v1/news/search/${this.props.term}%20subscription/1`)
-        .then(response => response.json())
-        .then(data => this.setState({ newsFeed: data.articles }))
+      if(this.props.term.includes(".com")) {
+        fetch(`http://localhost:4000/api/v1/news/search/${this.props.term.slice(0, this.props.term.indexOf('.'))}%20subscription/1`)
+          .then(response => response.json())
+          .then(data => this.setState({ newsFeed: data.articles }))
+      } else {
+        fetch(`http://localhost:4000/api/v1/news/search/${this.props.term}%20subscription/1`)
+          .then(response => response.json())
+          .then(data => this.setState({ newsFeed: data.articles }))
+      }
     }
   }
 

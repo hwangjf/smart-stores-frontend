@@ -8,26 +8,50 @@ import {
   GET_USER_SUBSCRIPTIONS,
   PERSIST_USER,
   SET_SUBSCRIPTION_DATE,
-  SET_SUBSCRIPTION_COST
+  SET_SUBSCRIPTION_COST,
+  GET_USER_SUBSCRIPTIONS_INFO
 } from '../actions/types.js';
 
 const initialState = {
   currentUser: {},
   userSubscriptions: [],
-  userSubscriptionInfo: {}
+  userSubscriptionsInfo: []
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_SUBSCRIPTION_DATE:
+    case GET_USER_SUBSCRIPTIONS_INFO:
       return {
         ...state,
-        userSubscriptionInfo: { ...state.userSubscriptionInfo }
+        userSubscriptionsInfo: [...state.userSubscriptionsInfo, action.payload]
+      }
+    case SET_SUBSCRIPTION_DATE:
+      let dateId = action.payload.id
+      let dateIndex = state.userSubscriptionsInfo.map(s => s.id).indexOf(dateId)
+      let dateReplacement = {
+        ...state.userSubscriptionsInfo[dateIndex], date: action.payload.date
+      }
+      return {
+        ...state,
+        userSubscriptionsInfo: [
+          ...state.userSubscriptionsInfo.slice(0, dateIndex),
+          dateReplacement,
+          ...state.userSubscriptionsInfo.slice(dateIndex + 1)
+        ]
       }
     case SET_SUBSCRIPTION_COST:
+      let costId = action.payload.id
+      let costIndex = state.userSubscriptionsInfo.map(s => s.id).indexOf(costId)
+      let costReplacement = {
+        ...state.userSubscriptionsInfo[costIndex], cost: action.payload.cost
+      }
       return {
         ...state,
-        userSubscriptionInfo: { ...state.userSubscriptionInfo }
+        userSubscriptionsInfo: [
+          ...state.userSubscriptionsInfo.slice(0, costIndex),
+          costReplacement,
+          ...state.userSubscriptionsInfo.slice(costIndex + 1)
+        ]
       }
     case REGISTER:
       return {
