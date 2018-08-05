@@ -56,30 +56,33 @@ class NewsContainer extends Component {
 
   render() {
     return (
-      <Container style={{ margin:"auto" }}>
+      <Container style={{ margin:"auto", height:"1400px", overflow:"scroll" }}>
         <Container style={{marginBottom:"5%"}} textAlign="center">
             
           <Icon
-            name="arrow left"
-            size="small"
+            name="arrow circle left"
+            size="large"
             fitted
             style={{cursor:"pointer"}}
             onClick={this.handlePageDec}
             disabled={this.state.pg < 2 ? true : false}
           >
           </Icon>
-          <span as="h4" style={{marginLeft:"3%", marginRight:"3%"}}>
+          <span style={{marginLeft:"3%", fontSize:"22px", marginRight:"3%"}}>
             News Feed
           </span>
           <Icon
-            name="arrow right"
-            size="small"
+            name="arrow circle right"
+            size="large"
             fitted
             onClick={this.handlePageInc}
             style={{ cursor: "pointer" }}
             >
           </Icon>
-          <h6>Click on a card </h6>
+          <h4>
+            Click on a subscription card
+          </h4>
+          <h3>{this.props.term.length > 0 ? decodeURI(this.props.term) : "Click on a subscription card"}</h3>
         </Container>
 
         <Card.Group centered>

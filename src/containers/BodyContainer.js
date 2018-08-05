@@ -23,7 +23,7 @@ class BodyContainer extends React.Component {
         {this.props.subscriptions ?
         <Container fluid>
           <Header
-            as="h4"
+            as="h2"
           >
             Subscription based retail and service providers
           </Header>

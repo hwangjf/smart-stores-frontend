@@ -20,9 +20,9 @@ class ProfileContainer extends Component {
             return <ProfileDisplay key={subscription.id} subscription={subscription} /> 
           })
           :
-          <h3>
-            {"Please add some subscriptions"}
-          </h3>
+          <Header style={{cursor:"pointer", fontSize:"40px"}} onClick={()=>this.props.history.push(`/${this.props.user.username}`)}>
+            {"Click to go back and add some subscriptions"}
+          </Header>
           }
         </Segment.Group>
       </Container>

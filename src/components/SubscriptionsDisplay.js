@@ -32,7 +32,7 @@ class SubscriptionsDisplay extends Component {
       <Card 
         style={{height:"25%", cursor:"default"}} 
         fluid 
-        onClick={()=>this.props.newsSubscription(encodeURI(this.props.subscription.name))}
+        onClick={() => { Adapter.isLoggedIn() ? null : window.scrollTo(0, 170);this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
         <Card.Header textAlign="center">
           {this.props.subscription.info
@@ -52,7 +52,7 @@ class SubscriptionsDisplay extends Component {
                   cursor: "pointer", 
                   marginTop: "auto", 
                   color: "#3366BB",
-                  fontSize: "16px"
+                  fontSize: "22px"
                 }}
               >
                 {this.props.subscription.name}
