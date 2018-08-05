@@ -40,7 +40,7 @@ class ProfileDisplay extends React.Component {
   render() {
     return (
       <Segment.Group horizontal 
-        onClick={() => this.props.newsSubscription(encodeURI(this.props.subscription.name))}
+        onClick={() => { window.scrollTo(0, 0); this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
         <Segment compact>
           <Header as="h4">
@@ -52,6 +52,7 @@ class ProfileDisplay extends React.Component {
           <Input 
             size="mini"
             style={{ marginRight: "5%"}}
+            label="Start Date:"
             type="date"
             onChange={this.handleChange} 
             />  
