@@ -76,7 +76,9 @@ export default function reducer(state = initialState, action) {
     case LOGOUT:
       return { 
         ...state, 
-        currentUser: {}
+        currentUser: {},
+        userSubscriptions: [],
+        userSubscriptionsInfo: []
       }
     case GET_USER_SUBSCRIPTIONS:
       return {
