@@ -23,7 +23,6 @@ class LoginForm extends React.Component {
     }
     this.props.login(user)
     // .then(() => this.history.push(`/${user.username}`))
-    this.props.history.push(`/${this.state.username}`)
     this.props.handleClose()
   }
 
