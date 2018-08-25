@@ -18,7 +18,7 @@ const initialState = {
   userSubscriptionsInfo: []
 };
 
-export default function reducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER_SUBSCRIPTIONS_INFO:
       return {
