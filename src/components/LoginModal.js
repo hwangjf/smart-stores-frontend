@@ -16,7 +16,7 @@ class LoginModal extends React.Component {
       <Modal
         open={this.state.modalOpen}
         onClose={this.handleClose}
-        trigger={<Button inverted onClick={this.handleOpen}>Log In</Button>}
+        trigger={<Button color="blue" onClick={this.handleOpen}>Log In</Button>}
         size="tiny"
         closeIcon
       >

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Button, Card, Segment } from 'semantic-ui-react';
+import { Image, Button, Card, Segment, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addUserSubscription, deleteUserSubscription, newsSubscription } from '../actions/index';
 import Adapter from '../Adapter';
@@ -32,12 +32,13 @@ class SubscriptionsDisplay extends Component {
       <Card 
         style={{height:"25%", cursor:"default"}} 
         fluid 
-        onClick={() => { Adapter.isLoggedIn() ? null : window.scrollTo(0, 170);this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
+        onClick={() => { 
+          this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
         <Card.Header textAlign="center">
           {this.props.subscription.info
           ?
-            <Segment style={{ paddingTop: "3%", paddingBottom: "3%"}}>
+            <Container style={{ paddingTop: "1.5vh", paddingBottom: "0.5vh", verticalAlign:"center"}}>
               <Image
                 src={this.props.subscription.info.logo} 
                 size="mini" 
@@ -58,7 +59,7 @@ class SubscriptionsDisplay extends Component {
                 {this.props.subscription.name}
               </span>
 
-            </Segment>
+            </Container>
             : 
               null}
           </Card.Header >

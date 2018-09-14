@@ -30,7 +30,7 @@ class TopBarContainer extends Component {
 
   render() {
     return (
-      <Menu inverted color="blue" size="huge" >
+      <Menu inverted color="blue" size="huge" style={{position:"fixed", width:"100vw", top:"0",left:"0", height:"7vh", zIndex:"1"}}>
         <Menu.Item style={{fontSize:"20px"}} fitted="vertically" color="blue" header onClick={()=>this.url()}>Smart Stores</Menu.Item>
         {this.props.user.currentUser.username 
         ? 
@@ -47,7 +47,7 @@ class TopBarContainer extends Component {
         {Adapter.isLoggedIn()
         ?
           <Menu.Item position="right">
-            <Button floated="right" inverted type="submit" onClick={this.logout}>Log Out</Button>
+            <Button floated="right" color="blue" type="submit" onClick={this.logout}>Log Out</Button>
           </Menu.Item>
         :
           <React.Fragment>
@@ -56,7 +56,7 @@ class TopBarContainer extends Component {
               <LoginModal />
             </Menu.Item>
             <Menu.Item>
-              <Button inverted type="submit" onClick={this.guestSignin}>Guest</Button>
+              <Button color="blue" type="submit" onClick={this.guestSignin}>Guest</Button>
             </Menu.Item>
           </React.Fragment>
         }

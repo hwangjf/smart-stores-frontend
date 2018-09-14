@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Grid, Segment, Input } from "semantic-ui-react";
+import { Grid, Segment, Input, Container, Divider } from "semantic-ui-react";
 import TopBarContainer from "./containers/TopBarContainer";
 import SideBarContainer from "./containers/SideBarContainer";
 import BodyContainer from "./containers/BodyContainer";
@@ -41,7 +41,7 @@ class App extends Component {
       <div>
         <TopBarContainer />
 
-        <Grid column="equal" style={{ backgroundColor: "#f6f6f6" }}>
+        <Grid relaxed column="equal" style={{position:"relative",top: "8.75vh",backgroundColor: "#f6f6f6" }}>
           <Grid.Row>
             <Grid.Column width={5} />
 
@@ -52,7 +52,7 @@ class App extends Component {
                     input="text"
                     icon="search"
                     iconPosition="left"
-                    style={{ marginTop: "20px", width: "90%" }}
+                    style={{ width: "90%" }}
                     fluid
                     placeholder="Search for name or description"
                     size="large"
@@ -60,14 +60,6 @@ class App extends Component {
                     value={this.state.term}
                     onChange={this.handleSearch}
                   />
-                  {/* </Grid.Column>
-                <Grid.Column> */}
-                  {/* <Button
-                    floated="right"
-                    attached="left"
-                  >
-                    {this.state.clicked ? 'hi' : 'notclicked'}
-                  </Button> */}
                 </Grid.Column>
               </Grid.Row>
             </Grid.Column>
@@ -80,32 +72,30 @@ class App extends Component {
               <SideBarContainer />
             </Grid.Column>
 
-            <Grid.Column width={11}>
-              <Segment>
-                <Switch>
-                  <Route
-                    exact
-                    path={`/${this.props.user.currentUser.username}/profile`}
-                    component={ProfileContainer}
-                  />
-                  <Route
-                    path="/"
-                    component={() => (
-                      <BodyContainer {...this.props} term={this.state.term} />
-                    )}
-                  />
-                  <Route
-                    path={`/${this.props.user.currentUser.username}`}
-                    component={BodyContainer}
-                  />
-                </Switch>
-              </Segment>
+            <Grid.Column width={10} >
+              <Switch>
+                <Route
+                  exact
+                  path={`/${this.props.user.currentUser.username}/profile`}
+                  component={ProfileContainer}
+                />
+                <Route
+                  path="/"
+                  component={() => (
+                    <BodyContainer {...this.props} term={this.state.term} />
+                  )}
+                />
+                <Route
+                  path={`/${this.props.user.currentUser.username}`}
+                  component={BodyContainer}
+                />
+              </Switch>
             </Grid.Column>
-
-            <Grid.Column width={3} floated="left">
-              <Segment style={{ marginRight: "5%" }}>
-                <NewsContainer />
-              </Segment>
+            
+            <Grid.Column width={4} >
+              {/* <Segment style={{ width:"95%" }}> */}
+                <NewsContainer  />
+              {/* </Segment> */}
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -40,7 +40,7 @@ class ProfileDisplay extends React.Component {
   render() {
     return (
       <Table.Row
-      onClick={() => { window.scrollTo(0, 0); this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
+      onClick={() => {this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
         <Table.Cell>
           {this.props.subscription.name}

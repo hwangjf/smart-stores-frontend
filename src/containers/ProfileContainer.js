@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Header, Container, Divider, Table } from 'semantic-ui-react';
+import { Segment, Header, Container, Divider, Table, Button } from 'semantic-ui-react';
 import ProfileDisplay from '../components/ProfileDisplay';
 
 class ProfileContainer extends Component {
   
   render() {
     return (
-      <Container>
+      <Container style={{width:"100vw"}}>
         <Header
           as="h4"
         >
@@ -16,12 +16,12 @@ class ProfileContainer extends Component {
         <Divider />
 
         {this.props.userSubscriptions.length > 0 ?
-          <Table celled striped selectable>
+          <Table celled striped selectable width={3}>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Company Name</Table.HeaderCell>
-                <Table.HeaderCell>Date subscribed</Table.HeaderCell>
-                <Table.HeaderCell>Monthly cost</Table.HeaderCell>
+                <Table.HeaderCell width={1}>Company Name</Table.HeaderCell>
+                <Table.HeaderCell width={1}>Date subscribed</Table.HeaderCell>
+                <Table.HeaderCell width={1}>Monthly cost</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -32,8 +32,19 @@ class ProfileContainer extends Component {
                 })
               }
             </Table.Body>
+            <Table.Footer>
+              <Table.Row>
+                  <Table.Cell>Number of subscriptions: {this.props.userSubscriptions.length}</Table.Cell>
+                  <Table.Cell>
+                    {"Email subscription updates         "}
+                    <Button size="tiny">Monthly</Button>
+                    <Button size="tiny">Chart</Button>
+                  </Table.Cell>
+                  <Table.Cell>Monthly cost: </Table.Cell>
+                </Table.Row>
+            </Table.Footer>
+            
           </Table>
-          
         :
           <Header style={{cursor:"pointer", fontSize:"40px"}} onClick={()=>this.props.history.push(`/${this.props.user.username}`)}>
             {"Click to go back and add some subscriptions"}

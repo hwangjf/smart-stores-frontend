@@ -2,7 +2,7 @@ import { GET_SUBSCRIPTION_INDEX, NEWS_SUBSCRIPTION } from '../actions/types.js';
 
 const initialState = {
   subscriptions: [],
-  term: 'netflix'
+  term: 'Netflix'
 };
 
 export default function subscriptionReducer(state = initialState, action) {

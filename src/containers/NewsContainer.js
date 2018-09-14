@@ -41,7 +41,6 @@ class NewsContainer extends Component {
           .then(data => this.setState({ newsFeed: data.articles }))
       }
     }
-
   }
 
   handlePageInc = () => {
@@ -56,9 +55,8 @@ class NewsContainer extends Component {
 
   render() {
     return (
-      <Container style={{ margin:"auto", height:"1400px", overflow:"scroll" }}>
-        <Container style={{marginBottom:"5%"}} textAlign="center">
-            
+      <Container textAlign="center" style={{ position: "fixed", top:"8vh", right:"-1.8vw", width:"25vw", height: "80vh" }}>
+        <Container textAlign="center" style={{paddingTop:"1.5vh", height:"14vh"}}>
           <Icon
             name="arrow circle left"
             size="large"
@@ -68,7 +66,7 @@ class NewsContainer extends Component {
             disabled={this.state.pg < 2 ? true : false}
           >
           </Icon>
-          <span style={{marginLeft:"3%", fontSize:"22px", marginRight:"3%"}}>
+          <span style={{margin: "0 2vw 0 2vw", paddingTop:"2vh", fontSize:"22px"}}>
             News Feed
           </span>
           <Icon
@@ -77,17 +75,26 @@ class NewsContainer extends Component {
             fitted
             onClick={this.handlePageInc}
             style={{ cursor: "pointer" }}
-            >
+          >
           </Icon>
-          <h4>
-            Click on a subscription card
-          </h4>
-          <h3>{this.props.term.length > 0 ? decodeURI(this.props.term) : "Click on a subscription card"}</h3>
+          <p style={{marginTop: "1vh", fontSize: "16px"}}>
+            Click card to get news feed
+          </p>
+          <p style={{ fontSize: "20px"}}>
+            {this.props.term.length > 0 ? decodeURI(this.props.term) : "Click on a subscription card"}
+          </p>
+          <br/>
         </Container>
-
-        <Card.Group centered>
-          {this.state.newsFeed ? this.state.newsFeed.map(article=><NewsDisplay key={UUID()} article={article} />) : null}
-        </Card.Group>
+          
+        {this.state.newsFeed.length > 0 ? 
+          <Card.Group centered style={{ position: "relative", margin:"auto", height:"80vh", width: "19vw", overflow:"scroll" }} textAlign="left">
+            {this.state.newsFeed.map(article=><NewsDisplay key={UUID()} article={article} />) }
+          </Card.Group>
+        : 
+          <p style={{color:"red", fontSize:"14px"}}>
+            Looks like there is no new news.
+          </p>
+        }
       </Container>
     )
   }

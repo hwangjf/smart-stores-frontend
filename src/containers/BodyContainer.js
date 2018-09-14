@@ -18,36 +18,33 @@ class BodyContainer extends React.Component {
 
   render() {
     return (
-      <Container>
-        
+      <Container style={{width:"100vw"}}>
         {this.props.subscriptions ?
-        <Container fluid>
-          <Header
-            as="h2"
-          >
-            Subscription based retail and service providers
-          </Header>
-          <Divider />
-          
-          <Card.Group itemsPerRow={3} centered>
-            {this.props.subscriptions.length > 0 
-            ? 
-              this.filterSubscriptions(this.props.subscriptions).map(subscription => {
-                if (this.props.userSubscriptions.map(s=>s.id).includes(subscription.id)) {
-                  return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={true}/>
-                }
-                return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={false}/>
-              })
-            : 
-              null
-            }
-          </Card.Group>
-
-        </Container>
-      :
-        null 
-      }
-
+          <React.Fragment>
+            <Header
+              as="h3"
+            >
+              Subscription based retail and service providers
+            </Header>
+            <Divider />
+            
+            <Card.Group itemsPerRow={3} centered>
+              {this.props.subscriptions.length > 0 
+              ? 
+                this.filterSubscriptions(this.props.subscriptions).map(subscription => {
+                  if (this.props.userSubscriptions.map(s=>s.id).includes(subscription.id)) {
+                    return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={true}/>
+                  }
+                  return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={false}/>
+                })
+              : 
+                null
+              }
+            </Card.Group>
+          </React.Fragment>
+        :
+          null 
+        }
       </Container>
     )
   }
