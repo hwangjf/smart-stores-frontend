@@ -41,12 +41,6 @@ class App extends Component {
       <div>
         <TopBarContainer />
 
-        <List divided>
-          <List.Item>1</List.Item>
-          <List.Item>2</List.Item>
-          <List.Item>3</List.Item>
-        </List>
-
         <Grid column="equal" style={{ backgroundColor: "#f6f6f6" }}>
           <Grid.Row>
             <Grid.Column width={5} />
@@ -66,7 +60,6 @@ class App extends Component {
                     value={this.state.term}
                     onChange={this.handleSearch}
                   />
-                  // action="Create"
                   {/* </Grid.Column>
                 <Grid.Column> */}
                   {/* <Button

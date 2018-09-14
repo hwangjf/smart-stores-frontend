@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Segment, Header, Input } from 'semantic-ui-react';
+import { Table, Header, Input } from 'semantic-ui-react';
 import { newsSubscription, setSubscriptionDate, setSubscriptionCost, getUserSubscriptionsInfo } from '../actions/index';
 
 class ProfileDisplay extends React.Component {
@@ -39,24 +39,24 @@ class ProfileDisplay extends React.Component {
 
   render() {
     return (
-      <Segment.Group horizontal 
-        onClick={() => { window.scrollTo(0, 0); this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
+      <Table.Row
+      onClick={() => { window.scrollTo(0, 0); this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
-        <Segment compact>
-          <Header as="h4">
-            {this.props.subscription.name}
-          </Header>
-        </Segment>
-
-        <Segment textAlign="right" floated="right" secondary>
+        <Table.Cell>
+          {this.props.subscription.name}
+        </Table.Cell>
+        
+        <Table.Cell>
           <Input 
             size="mini"
             style={{ marginRight: "5%"}}
             label="Start Date:"
             type="date"
             onChange={this.handleChange} 
-            />  
-
+          />  
+        </Table.Cell>
+        
+        <Table.Cell>
           <Input 
             size="mini"
             label="Cost per month: $"
@@ -64,10 +64,9 @@ class ProfileDisplay extends React.Component {
             value={this.props.cost}
             onChange={this.handleCost}
             style={{ width: "65px", marginRight: "28%" }}
-            />
-        </Segment>
-      
-      </Segment.Group>
+          />
+        </Table.Cell>
+      </Table.Row>
     )
   }
 }
