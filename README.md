@@ -9,7 +9,8 @@ Influence of technology, and the growing trend of companies following the subscr
 ## Screenshots
 
 ## Tech/framework used
-Built with React - react-router, Redux - Thunk, connected to Rails API backend [github.com/smart-stores-backend](github.com/smart-stores-backend)
+Built with React - react-router, Redux - Thunk, connected to Rails API backend [github.com/smart-stores-backend](https://github.com/hwangjf/smart-stores-backend)
+
 Styled with React Semantic ui
 
 ## Features
