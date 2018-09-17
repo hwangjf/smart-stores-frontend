@@ -2,7 +2,7 @@
 Smart Stores - subscription based companies aggregator and manager
 
 ## Motivation
-Influence of technology, and the growing trend of companies following the subscription model has made it more and more difficult to manage them.
+Influence of technology, and the growing trend of companies following the subscription model has made it more and more difficult to manage them. This is meant to be a place to browse subscription based companies, and provide a way to manage them all in one place.
 
 ## Code style
  
