@@ -36,12 +36,16 @@ class App extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  openOrClose = () => {
+    return
+  }
+
   render() {
     return (
       <div>
         <TopBarContainer />
 
-        <Grid relaxed column="equal" style={{position:"relative",top: "8.75vh",backgroundColor: "#f6f6f6" }}>
+        <Grid column="equal" style={{position:"relative",top: "8.75vh",backgroundColor: "#f6f6f6" }}>
           <Grid.Row>
             <Grid.Column width={5} />
 
@@ -68,11 +72,11 @@ class App extends Component {
           </Grid.Row>
 
           <Grid.Row stretched>
-            <Grid.Column width={2} floated="left" fixed="left">
+            <Grid.Column width={1} floated="left" fixed="left">
               <SideBarContainer />
             </Grid.Column>
 
-            <Grid.Column width={10} >
+            <Grid.Column width={10}>
               <Switch>
                 <Route
                   exact
@@ -93,9 +97,7 @@ class App extends Component {
             </Grid.Column>
             
             <Grid.Column width={4} >
-              {/* <Segment style={{ width:"95%" }}> */}
-                <NewsContainer  />
-              {/* </Segment> */}
+              <NewsContainer  />
             </Grid.Column>
           </Grid.Row>
         </Grid>

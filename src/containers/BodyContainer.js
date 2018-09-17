@@ -18,7 +18,7 @@ class BodyContainer extends React.Component {
 
   render() {
     return (
-      <Container style={{width:"100vw"}}>
+      <Container >
         {this.props.subscriptions ?
           <React.Fragment>
             <Header

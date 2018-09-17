@@ -21,10 +21,11 @@ class ProfileDisplay extends React.Component {
     })
   }
 
-  handleChange = (event) => {
+  handleDate = (event) => {
     this.setState({
       date: event.target.value
     }, ()=>{
+      console.log(this.state.date)
       if (this.props.userSubscriptionsInfo.length > 0) {
         this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date)
       }
@@ -33,6 +34,7 @@ class ProfileDisplay extends React.Component {
   
   handleCost = (event) => {
     this.setState({cost: event.target.value},()=>{
+      console.log(this.state.cost)
       this.props.setSubscriptionCost(this.props.user.id, this.props.subscription.id, this.state.cost)
     })
   }
@@ -52,7 +54,7 @@ class ProfileDisplay extends React.Component {
             style={{ marginRight: "5%"}}
             label="Start Date:"
             type="date"
-            onChange={this.handleChange} 
+            onChange={this.handleDate} 
           />  
         </Table.Cell>
         
