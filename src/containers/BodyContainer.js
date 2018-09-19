@@ -17,6 +17,7 @@ class BodyContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.userSubscriptions)
     return (
       <Container >
         {this.props.subscriptions ?
@@ -51,6 +52,7 @@ class BodyContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
     user: state.user.currentUser,
     userSubscriptions: state.user.userSubscriptions,

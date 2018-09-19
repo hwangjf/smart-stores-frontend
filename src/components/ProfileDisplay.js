@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Table, Header, Input } from 'semantic-ui-react';
-import { newsSubscription, setSubscriptionDate, setSubscriptionCost, getUserSubscriptionsInfo } from '../actions/index';
+import { newsSubscription, setSubscriptionDate, setSubscriptionCost, getUserSubscriptionsInfo, getUserSubscriptions } from '../actions/index';
 
 class ProfileDisplay extends React.Component {
   state = { 
@@ -10,13 +10,14 @@ class ProfileDisplay extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUserSubscriptionsInfo(this.props.user.id, this.props.subscription.id)
+    this.props.getUserSubscriptions(this.props.user.id)
       .then(()=>{
-        if (this.props.userSubscriptionsInfo.length > 0) {
-          this.setState({
-            date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
-            cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
-          })
+        if (this.props.userSubscriptions.length > 0 ) {
+          console.log(this.props.userSubscriptions)
+          // this.setState({
+          //   date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
+          //   cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
+          // })
         }
     })
   }
@@ -88,7 +89,8 @@ function mapDispatchToProps(dispatch) {
     newsSubscription: (subscription) => dispatch(newsSubscription(subscription)),
     setSubscriptionDate: (userId, subscriptionId, date) => dispatch(setSubscriptionDate(userId, subscriptionId, date)),
     setSubscriptionCost: (userId, subscriptionId, cost) => dispatch(setSubscriptionCost(userId, subscriptionId, cost)),
-    getUserSubscriptionsInfo: (userId, subscriptionId) => dispatch(getUserSubscriptionsInfo(userId, subscriptionId))
+    getUserSubscriptionsInfo: (userId, subscriptionId) => dispatch(getUserSubscriptionsInfo(userId, subscriptionId)),
+    getUserSubscriptions: (userId) => dispatch(getUserSubscriptions(userId))
   }
 }
 

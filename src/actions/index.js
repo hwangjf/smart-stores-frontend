@@ -70,12 +70,12 @@ export const getSubscriptionIndex = () => dispatch => {
   return Adapter.getSubscriptionIndex()
     .then(response => response.json())
     .then(subscriptions => {
-        dispatch({
-          type: GET_SUBSCRIPTION_INDEX,
-          payload: {
-            subscriptions: subscriptions
-          }
-       })
+      dispatch({
+        type: GET_SUBSCRIPTION_INDEX,
+        payload: {
+          subscriptions: subscriptions
+        }
+      })
     })
 }
 
@@ -98,6 +98,7 @@ export const addUserSubscription = (userId, subscriptionId) => dispatch => {
   return Adapter.addUserSubscription(userId, subscriptionId)
     .then(response => response.json())
     .then(subscriptions => {
+      debugger
       dispatch({
         type: ADD_USER_SUBSCRIPTION,
         payload: {

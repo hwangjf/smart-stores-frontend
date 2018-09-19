@@ -28,7 +28,7 @@ class ProfileContainer extends Component {
             <Table.Body>
               {
                 this.props.userSubscriptions.map(subscription => {
-                  return <ProfileDisplay key={subscription.id} subscription={subscription} /> 
+                  return <ProfileDisplay key={`${subscription.name}-${subscription.id}`} subscription={subscription} /> 
                 })
               }
             </Table.Body>
