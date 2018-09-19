@@ -98,7 +98,6 @@ export const addUserSubscription = (userId, subscriptionId) => dispatch => {
   return Adapter.addUserSubscription(userId, subscriptionId)
     .then(response => response.json())
     .then(subscriptions => {
-      debugger
       dispatch({
         type: ADD_USER_SUBSCRIPTION,
         payload: {
