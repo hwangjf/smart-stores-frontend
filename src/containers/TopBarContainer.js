@@ -33,15 +33,11 @@ class TopBarContainer extends Component {
       <Menu inverted color="blue" size="huge" style={{position:"fixed", width:"100vw", top:"0",left:"0", height:"7vh", zIndex:"1"}}>
         <Menu.Item style={{fontSize:"20px"}} fitted="vertically" color="blue" header onClick={()=>this.url()}>Smart Stores</Menu.Item>
         {this.props.user.currentUser.username 
-        ? 
-          <Menu.Item onClick={()=>this.props.history.push(`/${this.props.user.currentUser.username}/profile`)} >
-            
-            <Icon name="user circle"/>  
-              {this.props.user.currentUser.username}
-            
-          </Menu.Item>
-        :
-          null
+          ? <Menu.Item onClick={()=>this.props.history.push(`/${this.props.user.currentUser.username}/profile`)} >
+              <Icon name="user circle"/>  
+                {this.props.user.currentUser.username}
+            </Menu.Item>
+          : null
         }
         
         {Adapter.isLoggedIn()

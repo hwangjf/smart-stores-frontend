@@ -11,8 +11,11 @@ export default class SideBarContainer extends Component {
     const { activeItem } = this.state
 
     return (
-      <Menu text vertical style={{marginLeft:"15px"}}>
-        <Menu.Item header>Sort By (coming soon)</Menu.Item>
+      <Menu text vertical style={{marginLeft:"1vw"}}>
+        <Menu.Item header>Sort By</Menu.Item>
+        <span style={{color:"red", fontSize:"10px"}}>
+          (coming soon)
+        </span>
         <Menu.Item
           name='Best Rated'
           style={{textDecoration:"line-through"}}

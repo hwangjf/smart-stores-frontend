@@ -28,7 +28,6 @@ export const getUserSubscriptionsInfo = (userId, subscriptionId) => dispatch => 
           date: usersubscription.date
         }
       })
-      
     })
 }
 
