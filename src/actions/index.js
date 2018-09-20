@@ -97,12 +97,10 @@ export const persistUser = () => dispatch => {
 export const addUserSubscription = (userId, subscriptionId) => dispatch => {
   return Adapter.addUserSubscription(userId, subscriptionId)
     .then(response => response.json())
-    .then(subscriptions => {
+    .then(subscription => {
       dispatch({
         type: ADD_USER_SUBSCRIPTION,
-        payload: {
-          subscriptions: subscriptions
-        }
+        payload: subscription
       })
     })
 }
@@ -110,12 +108,11 @@ export const addUserSubscription = (userId, subscriptionId) => dispatch => {
 export const deleteUserSubscription = (userId, subscriptionId) => dispatch => {
   return Adapter.deleteUserSubscription(userId, subscriptionId)
     .then(response => response.json())
-    .then(subscriptions => {
+    .then(subscription => {
+      debugger
       dispatch({
         type: DELETE_USER_SUBSCRIPTION,
-        payload: {
-          subscriptions: subscriptions
-        }
+        payload: subscription
       })
     })
 }

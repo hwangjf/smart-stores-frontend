@@ -81,24 +81,24 @@ export default function userReducer(state = initialState, action) {
         userSubscriptionsInfo: []
       }
     case GET_USER_SUBSCRIPTIONS:
-      if (state.userSubscriptions.map(s => s.id).includes(action.payload.subscription.id)) {
+      if (state.userSubscriptions.map(s => s.subscription_id).includes(...action.payload.map(s=>s.subscription_id))) {
+        return state
+      }
+      return {
+        ...state,
+        userSubscriptions: [...state.userSubscriptions, ...action.payload.map(s=>s.subscription_id)]
+      }
+    case ADD_USER_SUBSCRIPTION:
+      if (state.userSubscriptions.includes(action.payload.id)) {
         return state
       }
       return {
         ...state,
         userSubscriptions: [...state.userSubscriptions, action.payload.subscription]
       }
-    case ADD_USER_SUBSCRIPTION:
-      if (state.userSubscriptions.map(s => s.id).includes(action.payload.subscription.id)) {
-        return state
-      }
-      return {
-        ...state,
-        userSubscriptions: [...state.userSubscriptions, action.payload.subscriptions]
-      }
     case DELETE_USER_SUBSCRIPTION:
-      let id = action.payload.subscriptions.id
-      let index = state.userSubscriptions.map(s=>s.id).indexOf(id)
+      let id = action.payload.id
+      let index = state.userSubscriptions.indexOf(id)
       return {
         ...state,
         userSubscriptions: [

@@ -17,7 +17,7 @@ class BodyContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.userSubscriptions)
+    console.log(this.props.userSubscriptions)    
     return (
       <Container >
         {this.props.subscriptions ?
@@ -31,15 +31,25 @@ class BodyContainer extends React.Component {
             
             <Card.Group itemsPerRow={3} centered>
               {this.props.subscriptions.length > 0 
-              ? 
-                this.filterSubscriptions(this.props.subscriptions).map(subscription => {
-                  if (this.props.userSubscriptions.map(s=>s.id).includes(subscription.id)) {
-                    return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={true}/>
-                  }
-                  return <SubscriptionsDisplay key={subscription.id} subscription={subscription} clicked={false}/>
-                })
-              : 
-                null
+                ? this.filterSubscriptions(this.props.subscriptions).map(subscription => {
+                      if (this.props.userSubscriptions.includes(subscription.id)) {
+                        return (
+                          <SubscriptionsDisplay 
+                            key={subscription.id} 
+                            subscription={subscription} 
+                            clicked={true}
+                          />
+                        )
+                      }
+                      return (
+                        <SubscriptionsDisplay 
+                          key={subscription.id} 
+                          subscription={subscription} 
+                          clicked={false}
+                        />
+                      )
+                    })
+                : null
               }
             </Card.Group>
           </React.Fragment>
@@ -52,7 +62,6 @@ class BodyContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     user: state.user.currentUser,
     userSubscriptions: state.user.userSubscriptions,

@@ -14,6 +14,7 @@ class ProfileDisplay extends React.Component {
       .then(()=>{
         if (this.props.userSubscriptions.length > 0 ) {
           console.log(this.props.userSubscriptions)
+          return
           // this.setState({
           //   date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
           //   cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
@@ -43,7 +44,7 @@ class ProfileDisplay extends React.Component {
   render() {
     return (
       <Table.Row
-      onClick={() => {this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
+        onClick={() => {this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
         <Table.Cell>
           {this.props.subscription.name}
@@ -55,7 +56,7 @@ class ProfileDisplay extends React.Component {
             style={{ marginRight: "5%"}}
             label="Start Date:"
             type="date"
-            onChange={this.handleDate} 
+            onChange={this.handleDate}
           />  
         </Table.Cell>
         
