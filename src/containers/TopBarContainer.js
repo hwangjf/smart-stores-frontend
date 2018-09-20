@@ -45,20 +45,18 @@ class TopBarContainer extends Component {
         }
         
         {Adapter.isLoggedIn()
-        ?
-          <Menu.Item position="right">
-            <Button floated="right" color="blue" type="submit" onClick={this.logout}>Log Out</Button>
-          </Menu.Item>
-        :
-          <React.Fragment>
-            <Menu.Item position="right" floated="right">
-              <RegisterModal />
-              <LoginModal />
+          ? <Menu.Item position="right">
+              <Button floated="right" color="blue" type="submit" onClick={this.logout}>Log Out</Button>
             </Menu.Item>
-            <Menu.Item>
-              <Button color="blue" type="submit" onClick={this.guestSignin}>Guest</Button>
-            </Menu.Item>
-          </React.Fragment>
+          : <React.Fragment>
+              <Menu.Item position="right" floated="right">
+                <RegisterModal />
+                <LoginModal />
+              </Menu.Item>
+              <Menu.Item>
+                <Button color="blue" type="submit" onClick={this.guestSignin}>Guest</Button>
+              </Menu.Item>
+            </React.Fragment>
         }
       </Menu>
     )

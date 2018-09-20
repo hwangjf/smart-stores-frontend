@@ -10,7 +10,6 @@ class AddSubscriptionModal extends Component {
   handleOpen = () => this.setState({ modalOpen: true }, () => { this.props.history.push('/addSubscription') })
   handleClose = () => this.setState({ modalOpen: false }, () => { this.props.history.push(`/`)}) 
 
-
   render() {
     return (
       <Container>
@@ -18,7 +17,7 @@ class AddSubscriptionModal extends Component {
           ? <Modal
               open={this.state.modalOpen}
               onClose={this.handleClose}
-              trigger={<Button color="blue" onClick={this.handleOpen} >Add new subscription</Button>}
+              trigger={<Button color="green" inverted onClick={this.handleOpen} >Add new subscription</Button>}
               size="tiny"
               closeIcon
             >
