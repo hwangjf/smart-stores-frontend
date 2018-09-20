@@ -12,7 +12,7 @@ export default class SideBarContainer extends Component {
 
     return (
       <Menu text vertical style={{marginLeft:"15px"}}>
-        <Menu.Item header>Sort By</Menu.Item>
+        <Menu.Item header>Sort By (coming soon)</Menu.Item>
         <Menu.Item
           name='Best Rated'
           style={{textDecoration:"line-through"}}
