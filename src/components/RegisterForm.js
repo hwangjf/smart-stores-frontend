@@ -32,6 +32,7 @@ class RegisterForm extends React.Component {
         {/*
           REGISTER FORM THAT IS NOT CONNECTED TO THE BACKEND
         */}
+        
         {/* <Form.Field required>
           <label>First Name:</label>
           <Input 

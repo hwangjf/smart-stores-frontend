@@ -24,6 +24,12 @@ class ProfileDisplay extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.cost !== prevState.cost) {
+      isNaN(parseInt(this.state.cost,10)) ? null : this.props.totalCost(parseInt(this.state.cost,10))
+    }
+  }
+
   handleDate = (event) => {
     this.setState({
       date: event.target.value
