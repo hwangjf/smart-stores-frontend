@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Container, Header, Button } from 'semantic-ui-react'
+import AddSubscriptionModal from '../components/AddSubscriptionModal'
 
 export default class SideBarContainer extends Component {
   state = { activeItem: 'Best Rated' }

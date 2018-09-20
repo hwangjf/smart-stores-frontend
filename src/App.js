@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Grid, Input } from "semantic-ui-react";
+import { Grid, Input, Container } from "semantic-ui-react";
 import TopBarContainer from "./containers/TopBarContainer";
 import SideBarContainer from "./containers/SideBarContainer";
 import BodyContainer from "./containers/BodyContainer";
@@ -14,6 +14,7 @@ import {
   getSubscriptionIndex
 } from "./actions/index";
 import NewsContainer from "./containers/NewsContainer";
+import AddSubscriptionModal from './components/AddSubscriptionModal';
 
 class App extends Component {
   state = {
@@ -47,7 +48,11 @@ class App extends Component {
 
         <Grid column="equal" style={{position:"relative",top: "8.75vh",backgroundColor: "#f6f6f6" }}>
           <Grid.Row>
-            <Grid.Column width={5} />
+            <Grid.Column width={5}>
+              <Container style={{padding: "1vw"}}>
+                <AddSubscriptionModal />
+              </Container>
+            </Grid.Column>
 
             <Grid.Column width={6}>
               <Grid.Row>
