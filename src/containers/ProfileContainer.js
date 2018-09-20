@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Header, Container, Divider, Table, Button } from 'semantic-ui-react';
+import { Header, Container, Divider, Table, Button } from 'semantic-ui-react';
 import ProfileDisplay from '../components/ProfileDisplay';
 
 class ProfileContainer extends Component {
-  
+  state = {
+    totalCost: 0
+  }
+
+  totalCost = (cost) => {
+    let total = this.state.totalCost + cost
+    this.setState({totalCost: total})
+  }
+
   render() {
     return (
       <Container style={{width:"100vw"}}>
@@ -15,7 +23,7 @@ class ProfileContainer extends Component {
         </Header>
         <Divider />
 
-        {this.props.userSubscriptions.length > 0 
+        {this.props.userSubscriptions.length > 0
           ? <Table celled striped selectable width={3}>
               <Table.Header>
                 <Table.Row>
@@ -26,28 +34,27 @@ class ProfileContainer extends Component {
               </Table.Header>
 
               <Table.Body>
-                {
-                  this.props.userSubscriptions.map(subscription => {
-                    return (
-                      <ProfileDisplay 
-                        key={`${subscription.name}-${subscription.id}`} 
-                        subscription={subscription} 
-                      />
-                    )
-                  })
-                }
+                {this.props.userSubscriptions.map(userSubscription => {
+                  return (
+                    <ProfileDisplay 
+                      key={`${userSubscription.user_id}-${userSubscription.subscription_id}`} 
+                      {...userSubscription}
+                      totalCost={this.totalCost}
+                    />
+                  )
+                })}
               </Table.Body>
 
               <Table.Footer>
                 <Table.Row>
-                    <Table.Cell>Number of subscriptions: {this.props.userSubscriptions.length}</Table.Cell>
-                    <Table.Cell>
-                      {"Email subscription updates     "}
-                      <Button size="tiny">Monthly</Button>
-                      <Button size="tiny">Chart</Button>
-                    </Table.Cell>
-                    <Table.Cell>Monthly cost: </Table.Cell>
-                  </Table.Row>
+                  <Table.Cell>Number of subscriptions: {this.props.userSubscriptions.length}</Table.Cell>
+                  <Table.Cell>
+                    {"Email subscription updates     "}
+                    <Button size="tiny">Monthly</Button>
+                    <Button size="tiny">Chart</Button>
+                  </Table.Cell>
+                  <Table.Cell>Monthly cost: ${this.state.totalCost}</Table.Cell>
+                </Table.Row>
               </Table.Footer>
               
             </Table>
@@ -60,6 +67,7 @@ class ProfileContainer extends Component {
     )
   }
 }
+
 // fix user subscriptions
 function mapStateToProps(state) {
   return {

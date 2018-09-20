@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Table, Header, Input } from 'semantic-ui-react';
+import { Table, Input } from 'semantic-ui-react';
 import { newsSubscription, setSubscriptionDate, setSubscriptionCost, getUserSubscriptionsInfo, getUserSubscriptions } from '../actions/index';
+import Adapter from '../Adapter';
 
 class ProfileDisplay extends React.Component {
   state = { 
@@ -10,16 +11,16 @@ class ProfileDisplay extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUserSubscriptions(this.props.user.id)
-      .then(()=>{
-        if (this.props.userSubscriptions.length > 0 ) {
-          console.log(this.props.userSubscriptions)
+    Adapter.getUserSubscriptionsInfo(this.props.user_id, this.props.subscription_id)
+      .then(response => response.json())
+      .then(usersubscription => {
+        this.setState({
+          date: usersubscription.date || '',
+          cost: usersubscription.cost || ''
+        }, () => {
+          isNaN(parseInt(this.state.cost,10)) ? null : this.props.totalCost(parseInt(this.state.cost,10))
           return
-          // this.setState({
-          //   date: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).date,
-          //   cost: this.props.userSubscriptionsInfo.find(s => s.subscription_id === this.props.subscription.id).cost
-          // })
-        }
+        })
     })
   }
 
@@ -27,21 +28,20 @@ class ProfileDisplay extends React.Component {
     this.setState({
       date: event.target.value
     }, ()=>{
-      console.log(this.state.date)
-      if (this.props.userSubscriptionsInfo.length > 0) {
-        this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date)
-      }
+      // console.log(this.state.date)
+      this.props.setSubscriptionDate(this.props.user.id,this.props.subscription.id, this.state.date)
     })
   }
   
   handleCost = (event) => {
     this.setState({cost: event.target.value},()=>{
-      console.log(this.state.cost)
+      // console.log(this.state.cost)
       this.props.setSubscriptionCost(this.props.user.id, this.props.subscription.id, this.state.cost)
     })
   }
 
   render() {
+    // console.log(this.state)
     return (
       <Table.Row
         onClick={() => {this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
@@ -54,8 +54,9 @@ class ProfileDisplay extends React.Component {
           <Input 
             size="mini"
             style={{ marginRight: "5%"}}
-            label="Start Date:"
+            label="Date:"
             type="date"
+            value={this.state.date}
             onChange={this.handleDate}
           />  
         </Table.Cell>
@@ -65,7 +66,7 @@ class ProfileDisplay extends React.Component {
             size="mini"
             label="Cost per month: $"
             type="number"
-            value={this.props.cost}
+            value={this.state.cost}
             onChange={this.handleCost}
             style={{ width: "65px", marginRight: "28%" }}
           />

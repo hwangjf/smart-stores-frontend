@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Button, Card, Segment, Container } from 'semantic-ui-react';
+import { Image, Button, Card, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addUserSubscription, deleteUserSubscription, newsSubscription } from '../actions/index';
 import Adapter from '../Adapter';
@@ -32,13 +32,12 @@ class SubscriptionsDisplay extends Component {
       <Card 
         style={{height:"25%", cursor:"default"}} 
         fluid 
-        onClick={() => { 
+        onClick={() => {
           this.props.newsSubscription(encodeURI(this.props.subscription.name))}}
       >
         <Card.Header textAlign="center">
           {this.props.subscription.info
-          ?
-            <Container style={{ paddingTop: "1.5vh", paddingBottom: "0.5vh", verticalAlign:"center"}}>
+          ? <Container style={{ paddingTop: "1.5vh", paddingBottom: "0.5vh", verticalAlign:"center"}}>
               <Image
                 src={this.props.subscription.info.logo} 
                 size="mini" 
@@ -60,61 +59,55 @@ class SubscriptionsDisplay extends Component {
               </span>
 
             </Container>
-            : 
-              null}
+            : null}
           </Card.Header >
         {this.props.subscription.info
-        ?
-          <Card.Content style={{ color:"black" }}>
-            {this.props.subscription.info.description}
-          </Card.Content>
-        :
-        null}
+          ? <Card.Content style={{ color:"black" }}>
+              {this.props.subscription.info.description}
+            </Card.Content>
+          : null
+        }
         
         <Card.Content >
           {this.props.subscription.info
-            ?
-            <React.Fragment>
-              <Button
-                style={{ cursor: "pointer" }}
-                circular
-                color="twitter"
-                icon="twitter"
-                floated="left"
-                size="small"
-                onClick={() => window.open(`https://twitter.com/${this.props.subscription.info.twitter.handle}`, "_blank")}
-              >
-              </Button>
-              <Button
-                style={{ cursor: "pointer" }}
-                circular
-                color="facebook"
-                icon="facebook f"
-                floated="left"
-                size="small"
-                onClick={() => window.open(`https://facebook.com/${this.props.subscription.info.facebook.handle}`, "_blank")}
-              >
-              </Button>
-            
-            {Adapter.isLoggedIn()
-              ?
+            ? <React.Fragment>
                 <Button
-                  id={this.props.subscription.id}
-                  floated="right"
-                  size="small"
-                  color={this.state.clicked ? "red" : "green"}
-                  icon={this.state.clicked ? "cancel" : "add"}
+                  style={{ cursor: "pointer" }}
                   circular
-                  onClick={this.handleClick}
+                  color="twitter"
+                  icon="twitter"
+                  floated="left"
+                  size="small"
+                  onClick={() => window.open(`https://twitter.com/${this.props.subscription.info.twitter.handle}`, "_blank")}
                 >
                 </Button>
-                :
-                null
+                <Button
+                  style={{ cursor: "pointer" }}
+                  circular
+                  color="facebook"
+                  icon="facebook f"
+                  floated="left"
+                  size="small"
+                  onClick={() => window.open(`https://facebook.com/${this.props.subscription.info.facebook.handle}`, "_blank")}
+                >
+                </Button>
+              
+              {Adapter.isLoggedIn()
+                ? <Button
+                    id={this.props.subscription.id}
+                    floated="right"
+                    size="small"
+                    color={this.state.clicked ? "red" : "green"}
+                    icon={this.state.clicked ? "cancel" : "add"}
+                    circular
+                    onClick={this.handleClick}
+                  >
+                  </Button>
+                : null
               }
 
             </React.Fragment>
-            :
-            null}
+            : null}
         
         </Card.Content>
       </Card>

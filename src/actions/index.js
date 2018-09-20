@@ -21,8 +21,14 @@ export const getUserSubscriptionsInfo = (userId, subscriptionId) => dispatch => 
     .then(usersubscription => {
       dispatch({
         type: GET_USER_SUBSCRIPTIONS_INFO,
-        payload: usersubscription
+        payload: {
+          subscriptionId: usersubscription.subscription_id,
+          userId: usersubscription.user_id,
+          cost: usersubscription.cost,
+          date: usersubscription.date
+        }
       })
+      
     })
 }
 
@@ -109,7 +115,6 @@ export const deleteUserSubscription = (userId, subscriptionId) => dispatch => {
   return Adapter.deleteUserSubscription(userId, subscriptionId)
     .then(response => response.json())
     .then(subscription => {
-      debugger
       dispatch({
         type: DELETE_USER_SUBSCRIPTION,
         payload: subscription

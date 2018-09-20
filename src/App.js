@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Grid, Segment, Input, Container, Divider } from "semantic-ui-react";
+import { Grid, Input } from "semantic-ui-react";
 import TopBarContainer from "./containers/TopBarContainer";
 import SideBarContainer from "./containers/SideBarContainer";
 import BodyContainer from "./containers/BodyContainer";

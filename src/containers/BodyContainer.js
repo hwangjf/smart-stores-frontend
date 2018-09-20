@@ -6,55 +6,54 @@ import { getUserSubscriptions, getSubscriptionIndex } from '../actions/index';
 
 class BodyContainer extends React.Component {
 
-  componentDidUpdate(prevProps) {
-    if (this.props.user.id !== prevProps.user.id) {
-      this.props.getUserSubscriptions(this.props.user.id)
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.user.id !== prevProps.user.id) {
+  //     this.props.getUserSubscriptions(this.props.user.id)
+  //   }
+  // }
 
   filterSubscriptions = (array) => {
     return array.filter(s => s.name.toLowerCase().includes(this.props.term.toLowerCase()) || s.info.description.toLowerCase().includes(this.props.term.toLowerCase()))
   }
 
-  render() {
-    console.log(this.props.userSubscriptions)    
+  render() {  
     return (
       <Container >
-        {this.props.subscriptions ?
-          <React.Fragment>
-            <Header
-              as="h3"
-            >
-              Subscription based retail and service providers
-            </Header>
-            <Divider />
-            
-            <Card.Group itemsPerRow={3} centered>
-              {this.props.subscriptions.length > 0 
-                ? this.filterSubscriptions(this.props.subscriptions).map(subscription => {
-                      if (this.props.userSubscriptions.includes(subscription.id)) {
+        {this.props.subscriptions 
+          ? <React.Fragment>
+              <Header
+                as="h3"
+              >
+                Subscription based retail and service providers
+              </Header>
+              <Divider />
+              
+              <Card.Group itemsPerRow={3} centered>
+                {this.props.subscriptions.length > 0
+                  ? this.filterSubscriptions(this.props.subscriptions).map(subscription => {
+                      if (this.props.userSubscriptions.map(s=>s.subscription_id).includes(subscription.id)) {
                         return (
                           <SubscriptionsDisplay 
-                            key={subscription.id} 
+                            key={subscription.id}
                             subscription={subscription} 
                             clicked={true}
                           />
                         )
+                      } else {
+                        return (
+                          <SubscriptionsDisplay 
+                            key={subscription.id} 
+                            subscription={subscription} 
+                            clicked={false}
+                          />
+                        )
                       }
-                      return (
-                        <SubscriptionsDisplay 
-                          key={subscription.id} 
-                          subscription={subscription} 
-                          clicked={false}
-                        />
-                      )
                     })
-                : null
-              }
-            </Card.Group>
-          </React.Fragment>
-        :
-          null 
+                  : null
+                }
+              </Card.Group>
+            </React.Fragment>
+          : null 
         }
       </Container>
     )
