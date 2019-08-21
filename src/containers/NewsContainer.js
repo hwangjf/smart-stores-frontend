@@ -11,9 +11,12 @@ class NewsContainer extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:4000/api/v1/news/search/${this.props.term}%20subscription/${this.state.pg}`)
-      .then(response=>response.json())
-      .then(data=>this.setState({newsFeed:data.articles}))
+    // fetch(`http://localhost:4000/api/v1/news/search/${this.props.term}%20subscription/${this.state.pg}`)
+    //   .then(response=>response.json())
+    //   .then(data=> {
+    //     debugger
+    //     this.setState({newsFeed:data.articles})
+    //   })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -86,7 +89,7 @@ class NewsContainer extends Component {
           <br/>
         </Container>
           
-        {this.state.newsFeed.length > 0 ? 
+        {/* {this.state.newsFeed.length > 0 ? 
           <Card.Group centered style={{ position: "relative", margin:"auto", height:"80vh", width: "19vw", overflow:"scroll" }} textAlign="left">
             {this.state.newsFeed.map(article=><NewsDisplay key={UUID()} article={article} />) }
           </Card.Group>
@@ -94,7 +97,7 @@ class NewsContainer extends Component {
           <p style={{color:"red", fontSize:"14px"}}>
             Looks like there is no new news.
           </p>
-        }
+        } */}
       </Container>
     )
   }
